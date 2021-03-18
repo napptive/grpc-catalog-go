@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package catalog;
+option go_package = "github.com/napptive/grpc-catalog-go;grpc_catalog_go";
+
+
+import "catalog/entities.proto";
+import "common/entities.proto";
+
+import "google/api/annotations.proto";
+
+// Catalog related operations
+service Catalog {
+  // Add a new application in the catalog
+  rpc Add (stream AddApplicationRequest) returns (catalog_common.OpResponse){
+    option (google.api.http) = {
+      post: "/v0/catalog/add"
+      body: "*"
+    };
+  }
+  // Download an application from catalog
+  rpc Download(DownloadApplicationRequest) returns (stream FileInfo) {
+    option (google.api.http) = {
+      post: "/v0/catalog/download",
+      body: "*"
+    };
+  }
+}

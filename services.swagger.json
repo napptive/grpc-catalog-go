@@ -1,0 +1,192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "catalog/services.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v0/catalog/add": {
+      "post": {
+        "summary": "Add a new application in the catalog",
+        "operationId": "Catalog_Add",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalog_commonOpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogAddApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Catalog"
+        ]
+      }
+    },
+    "/v0/catalog/download": {
+      "post": {
+        "summary": "Download an application from catalog",
+        "operationId": "Catalog_Download",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/catalogFileInfo"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of catalogFileInfo"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogDownloadApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Catalog"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "catalogAddApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application\nThe ApplicacionName uses the same approach as docker naming\n[repoURL/]repoName/appName[:tag]"
+        },
+        "file": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/catalogFileInfo"
+          },
+          "title": "Files with all the application files"
+        }
+      },
+      "title": "AddApplicationRequest with a request to add an application to catalog"
+    },
+    "catalogDownloadApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application\nThe ApplicacionName uses the same approach as docker naming\n[repoURL/]repoName/appName[:tag]"
+        }
+      },
+      "title": "DownloadApplicationRequest with the request to download an application"
+    },
+    "catalogFileInfo": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "title": "Path with the path of the file"
+        },
+        "data": {
+          "type": "string",
+          "format": "byte",
+          "title": "Data with the file content"
+        }
+      },
+      "title": "FileInfo represents all the information of an application file"
+    },
+    "catalog_commonOpResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/catalog_commonOpStatus",
+          "description": "Status of the operation."
+        },
+        "status_name": {
+          "type": "string",
+          "description": "StatusName with the string representation of the status."
+        },
+        "user_info": {
+          "type": "string",
+          "description": "UserInfo with additional information to show to the user."
+        }
+      },
+      "description": "OpResponse with a common definition for the result of executing an operation through gRPC. Notice that\nin case of an error, the call must fail unless the operation is executed asynchronously and this\nmessage contains the result of a past operation."
+    },
+    "catalog_commonOpStatus": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SUCCESS"
+      ],
+      "default": "UNKNOWN",
+      "description": "OpStatus enumeration defining the possible status of an operation.\n\n - UNKNOWN: Unknown operation status indicates an error in the processing of the request as all operations should\nhave a determined status.\n - SUCCESS: Success indicates that the operation was completed successfully."
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package catalog;
+option go_package = "github.com/napptive/grpc-catalog-go;grpc_catalog_go";
+
+import "validate/validate.proto";
+
+// FileInfo represents all the information of an application file
+message FileInfo {
+  // Path with the path of the file
+  string path = 1 [(validate.rules).string.min_len = 1];
+  // Data with the file content
+  bytes data = 2;
+}
+
+// AddApplicationRequest with a request to add an application to catalog
+message AddApplicationRequest {
+  // ApplicationName with the name of the application
+  // The ApplicacionName uses the same approach as docker naming
+  // [repoURL/]repoName/appName[:tag]
+  string application_name = 1 [(validate.rules).string.min_len = 1];
+  // Files with all the application files
+  repeated FileInfo file = 2 [(validate.rules).repeated.min_items = 1];
+}
+
+// DownloadApplicationRequest with the request to download an application
+message DownloadApplicationRequest {
+  // ApplicationName with the name of the application
+  // The ApplicacionName uses the same approach as docker naming
+  // [repoURL/]repoName/appName[:tag]
+  string application_name = 1 [(validate.rules).string.min_len = 1];
+}
+
