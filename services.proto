@@ -5,7 +5,7 @@ option go_package = "github.com/napptive/grpc-catalog-go;grpc_catalog_go";
 
 
 import "catalog/entities.proto";
-import "common/entities.proto";
+import "catalog-common/entities.proto";
 
 import "google/api/annotations.proto";
 
