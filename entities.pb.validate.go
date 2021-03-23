@@ -124,26 +124,14 @@ func (m *AddApplicationRequest) Validate() error {
 		}
 	}
 
-	if len(m.GetFile()) < 1 {
-		return AddApplicationRequestValidationError{
-			field:  "File",
-			reason: "value must contain at least 1 item(s)",
-		}
-	}
-
-	for idx, item := range m.GetFile() {
-		_, _ = idx, item
-
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return AddApplicationRequestValidationError{
-					field:  fmt.Sprintf("File[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
+	if v, ok := interface{}(m.GetFile()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AddApplicationRequestValidationError{
+				field:  "File",
+				reason: "embedded message failed validation",
+				cause:  err,
 			}
 		}
-
 	}
 
 	return nil

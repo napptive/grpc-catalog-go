@@ -97,10 +97,7 @@
           "title": "ApplicationName with the name of the application\nThe ApplicacionName uses the same approach as docker naming\n[repoURL/]repoName/appName[:tag]"
         },
         "file": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/catalogFileInfo"
-          },
+          "$ref": "#/definitions/catalogFileInfo",
           "title": "Files with all the application files"
         }
       },
