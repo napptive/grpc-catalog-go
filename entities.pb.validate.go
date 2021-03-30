@@ -340,3 +340,309 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RemoveApplicationRequestValidationError{}
+
+// Validate checks the field values on InfoApplicationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *InfoApplicationRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if utf8.RuneCountInString(m.GetApplicationName()) < 1 {
+		return InfoApplicationRequestValidationError{
+			field:  "ApplicationName",
+			reason: "value length must be at least 1 runes",
+		}
+	}
+
+	return nil
+}
+
+// InfoApplicationRequestValidationError is the validation error returned by
+// InfoApplicationRequest.Validate if the designated constraints aren't met.
+type InfoApplicationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InfoApplicationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InfoApplicationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InfoApplicationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InfoApplicationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InfoApplicationRequestValidationError) ErrorName() string {
+	return "InfoApplicationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InfoApplicationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInfoApplicationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InfoApplicationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InfoApplicationRequestValidationError{}
+
+// Validate checks the field values on InfoApplicationResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *InfoApplicationResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for RepositoryName
+
+	// no validation rules for ApplicationName
+
+	// no validation rules for Tag
+
+	// no validation rules for MedataFile
+
+	// no validation rules for AppConfFile
+
+	return nil
+}
+
+// InfoApplicationResponseValidationError is the validation error returned by
+// InfoApplicationResponse.Validate if the designated constraints aren't met.
+type InfoApplicationResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InfoApplicationResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InfoApplicationResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InfoApplicationResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InfoApplicationResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InfoApplicationResponseValidationError) ErrorName() string {
+	return "InfoApplicationResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InfoApplicationResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInfoApplicationResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InfoApplicationResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InfoApplicationResponseValidationError{}
+
+// Validate checks the field values on ApplicationSummary with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ApplicationSummary) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for RepositoryName
+
+	// no validation rules for ApplicationName
+
+	// no validation rules for Tag
+
+	// no validation rules for MetadataName
+
+	return nil
+}
+
+// ApplicationSummaryValidationError is the validation error returned by
+// ApplicationSummary.Validate if the designated constraints aren't met.
+type ApplicationSummaryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationSummaryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationSummaryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationSummaryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationSummaryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationSummaryValidationError) ErrorName() string {
+	return "ApplicationSummaryValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplicationSummaryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplicationSummary.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationSummaryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationSummaryValidationError{}
+
+// Validate checks the field values on ApplicationList with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *ApplicationList) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	for idx, item := range m.GetApplications() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplicationListValidationError{
+					field:  fmt.Sprintf("Applications[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ApplicationListValidationError is the validation error returned by
+// ApplicationList.Validate if the designated constraints aren't met.
+type ApplicationListValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationListValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationListValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationListValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationListValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationListValidationError) ErrorName() string { return "ApplicationListValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApplicationListValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplicationList.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationListValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationListValidationError{}

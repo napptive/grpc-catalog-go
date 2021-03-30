@@ -37,3 +37,41 @@ message RemoveApplicationRequest {
   // [catalogURL/]repoName/appName[:tag]
   string application_name = 1 [(validate.rules).string.min_len = 1];
 }
+
+// InfoApplicationRequest with the request to ask for an application
+message InfoApplicationRequest {
+  // ApplicationName with the name of the application
+  // [catalogURL/]repoName/appName[:tag]
+  string application_name = 1 [(validate.rules).string.min_len = 1];
+}
+
+// InfoApplicationResponse with the response of an application
+message InfoApplicationResponse {
+  // RepositoryName with the name of the repository
+  string repository_name = 1;
+  // ApplicationName with the name of the application
+  string application_name = 2;
+  // Tag with the tag of the application
+  string tag = 3;
+  // MetadataFile with the content of metadata file
+  bytes medata_file = 4;
+  // AppConfFile with the content of app_config file
+  bytes app_conf_file = 5;
+}
+
+// ApplicationSummary with a resume of an application
+message ApplicationSummary {
+  // RepositoryName with the name of the repository
+  string repository_name = 1;
+  // ApplicationName with the name of the application
+  string application_name = 2;
+  // Tag with the tag of the application
+  string tag = 3;
+  // MetadataName with the name defined in metadata file
+  string metadata_name = 4;
+}
+
+// ApplicationList with a list of application resume
+message ApplicationList {
+  repeated ApplicationSummary applications = 1;
+}

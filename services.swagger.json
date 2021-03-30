@@ -87,6 +87,61 @@
         ]
       }
     },
+    "/v0/catalog/info": {
+      "post": {
+        "summary": "Info returns the detail of a given application",
+        "operationId": "Catalog_Info",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalogInfoApplicationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogInfoApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Catalog"
+        ]
+      }
+    },
+    "/v0/catalog/list": {
+      "get": {
+        "operationId": "Catalog_List",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalogApplicationList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Catalog"
+        ]
+      }
+    },
     "/v0/catalog/remove": {
       "post": {
         "summary": "Remove an application from the catalog",
@@ -136,6 +191,40 @@
       },
       "title": "AddApplicationRequest with a request to add an application to catalog"
     },
+    "catalogApplicationList": {
+      "type": "object",
+      "properties": {
+        "applications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/catalogApplicationSummary"
+          }
+        }
+      },
+      "title": "ApplicationList with a list of application resume"
+    },
+    "catalogApplicationSummary": {
+      "type": "object",
+      "properties": {
+        "repository_name": {
+          "type": "string",
+          "title": "RepositoryName with the name of the repository"
+        },
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application"
+        },
+        "tag": {
+          "type": "string",
+          "title": "Tag with the tag of the application"
+        },
+        "metadata_name": {
+          "type": "string",
+          "title": "MetadataName with the name defined in metadata file"
+        }
+      },
+      "title": "ApplicationSummary with a resume of an application"
+    },
     "catalogDownloadApplicationRequest": {
       "type": "object",
       "properties": {
@@ -160,6 +249,44 @@
         }
       },
       "title": "FileInfo represents all the information of an application file"
+    },
+    "catalogInfoApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application\n[catalogURL/]repoName/appName[:tag]"
+        }
+      },
+      "title": "InfoApplicationRequest with the request to ask for an application"
+    },
+    "catalogInfoApplicationResponse": {
+      "type": "object",
+      "properties": {
+        "repository_name": {
+          "type": "string",
+          "title": "RepositoryName with the name of the repository"
+        },
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application"
+        },
+        "tag": {
+          "type": "string",
+          "title": "Tag with the tag of the application"
+        },
+        "medata_file": {
+          "type": "string",
+          "format": "byte",
+          "title": "MetadataFile with the content of metadata file"
+        },
+        "app_conf_file": {
+          "type": "string",
+          "format": "byte",
+          "title": "AppConfFile with the content of app_config file"
+        }
+      },
+      "title": "InfoApplicationResponse with the response of an application"
     },
     "catalogRemoveApplicationRequest": {
       "type": "object",

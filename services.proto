@@ -32,4 +32,18 @@ service Catalog {
       body: "*"
     };
   }
+
+  rpc List (catalog_common.EmptyRequest) returns (ApplicationList) {
+    option (google.api.http) = {
+      get: "/v0/catalog/list"
+    };
+  }
+
+  // Info returns the detail of a given application
+  rpc Info (InfoApplicationRequest) returns (InfoApplicationResponse){
+    option (google.api.http) = {
+    post: "/v0/catalog/info"
+        body: "*"
+        };
+  }
 }
