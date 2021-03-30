@@ -86,8 +86,8 @@ type AddApplicationRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// ApplicationName with the name of the application
-	// The ApplicacionName uses the same approach as docker naming
-	// [repoURL/]repoName/appName[:tag]
+	// The Applicacion name uses the same approach as docker naming
+	// [catalogURL/]repoName/appName[:tag]
 	ApplicationName string `protobuf:"bytes,1,opt,name=application_name,json=applicationName,proto3" json:"application_name,omitempty"`
 	// Files with all the application files
 	File *FileInfo `protobuf:"bytes,2,opt,name=file,proto3" json:"file,omitempty"`
@@ -146,8 +146,8 @@ type DownloadApplicationRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// ApplicationName with the name of the application
-	// The ApplicacionName uses the same approach as docker naming
-	// [repoURL/]repoName/appName[:tag]
+	// The Applicacion name uses the same approach as docker naming
+	// [catalogURL/]repoName/appName[:tag]
 	ApplicationName string `protobuf:"bytes,1,opt,name=application_name,json=applicationName,proto3" json:"application_name,omitempty"`
 }
 
@@ -190,6 +190,56 @@ func (x *DownloadApplicationRequest) GetApplicationName() string {
 	return ""
 }
 
+// RemoveApplicationRequest with the request to remove an application
+type RemoveApplicationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApplicationName with the name of the application
+	// [catalogURL/]repoName/appName[:tag]
+	ApplicationName string `protobuf:"bytes,1,opt,name=application_name,json=applicationName,proto3" json:"application_name,omitempty"`
+}
+
+func (x *RemoveApplicationRequest) Reset() {
+	*x = RemoveApplicationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_catalog_entities_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RemoveApplicationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveApplicationRequest) ProtoMessage() {}
+
+func (x *RemoveApplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_catalog_entities_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveApplicationRequest.ProtoReflect.Descriptor instead.
+func (*RemoveApplicationRequest) Descriptor() ([]byte, []int) {
+	return file_catalog_entities_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RemoveApplicationRequest) GetApplicationName() string {
+	if x != nil {
+		return x.ApplicationName
+	}
+	return ""
+}
+
 var File_catalog_entities_proto protoreflect.FileDescriptor
 
 var file_catalog_entities_proto_rawDesc = []byte{
@@ -212,6 +262,11 @@ var file_catalog_entities_proto_rawDesc = []byte{
 	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x32, 0x0a, 0x10, 0x61, 0x70, 0x70,
 	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0f, 0x61, 0x70,
+	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0x4e, 0x0a,
+	0x18, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x32, 0x0a, 0x10, 0x61, 0x70, 0x70,
+	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0f, 0x61, 0x70,
 	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4e, 0x61, 0x6d, 0x65, 0x42, 0x35, 0x5a,
 	0x33, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70,
 	0x74, 0x69, 0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f,
@@ -231,11 +286,12 @@ func file_catalog_entities_proto_rawDescGZIP() []byte {
 	return file_catalog_entities_proto_rawDescData
 }
 
-var file_catalog_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_catalog_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_catalog_entities_proto_goTypes = []interface{}{
 	(*FileInfo)(nil),                   // 0: catalog.FileInfo
 	(*AddApplicationRequest)(nil),      // 1: catalog.AddApplicationRequest
 	(*DownloadApplicationRequest)(nil), // 2: catalog.DownloadApplicationRequest
+	(*RemoveApplicationRequest)(nil),   // 3: catalog.RemoveApplicationRequest
 }
 var file_catalog_entities_proto_depIdxs = []int32{
 	0, // 0: catalog.AddApplicationRequest.file:type_name -> catalog.FileInfo
@@ -288,6 +344,18 @@ func file_catalog_entities_proto_init() {
 				return nil
 			}
 		}
+		file_catalog_entities_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RemoveApplicationRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -295,7 +363,7 @@ func file_catalog_entities_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_catalog_entities_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

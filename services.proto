@@ -25,4 +25,11 @@ service Catalog {
       body: "*"
     };
   }
+  //Remove an application from the catalog
+  rpc Remove (RemoveApplicationRequest) returns (catalog_common.OpResponse){
+    option (google.api.http) = {
+      post: "/v0/catalog/remove"
+      body: "*"
+    };
+  }
 }

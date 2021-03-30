@@ -86,6 +86,39 @@
           "Catalog"
         ]
       }
+    },
+    "/v0/catalog/remove": {
+      "post": {
+        "summary": "Remove an application from the catalog",
+        "operationId": "Catalog_Remove",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalog_commonOpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogRemoveApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Catalog"
+        ]
+      }
     }
   },
   "definitions": {
@@ -94,7 +127,7 @@
       "properties": {
         "application_name": {
           "type": "string",
-          "title": "ApplicationName with the name of the application\nThe ApplicacionName uses the same approach as docker naming\n[repoURL/]repoName/appName[:tag]"
+          "title": "ApplicationName with the name of the application\nThe Applicacion name uses the same approach as docker naming\n[catalogURL/]repoName/appName[:tag]"
         },
         "file": {
           "$ref": "#/definitions/catalogFileInfo",
@@ -108,7 +141,7 @@
       "properties": {
         "application_name": {
           "type": "string",
-          "title": "ApplicationName with the name of the application\nThe ApplicacionName uses the same approach as docker naming\n[repoURL/]repoName/appName[:tag]"
+          "title": "ApplicationName with the name of the application\nThe Applicacion name uses the same approach as docker naming\n[catalogURL/]repoName/appName[:tag]"
         }
       },
       "title": "DownloadApplicationRequest with the request to download an application"
@@ -127,6 +160,16 @@
         }
       },
       "title": "FileInfo represents all the information of an application file"
+    },
+    "catalogRemoveApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application\n[catalogURL/]repoName/appName[:tag]"
+        }
+      },
+      "title": "RemoveApplicationRequest with the request to remove an application"
     },
     "catalog_commonOpResponse": {
       "type": "object",
