@@ -429,9 +429,19 @@ func (m *InfoApplicationResponse) Validate() error {
 
 	// no validation rules for Tag
 
-	// no validation rules for MedataFile
+	// no validation rules for MetadataFile
 
-	// no validation rules for AppConfFile
+	// no validation rules for ReadmeFile
+
+	if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return InfoApplicationResponseValidationError{
+				field:  "Metadata",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	return nil
 }
@@ -646,3 +656,325 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ApplicationListValidationError{}
+
+// Validate checks the field values on KubernetesEntities with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *KubernetesEntities) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ApiVersion
+
+	// no validation rules for Type
+
+	// no validation rules for Name
+
+	return nil
+}
+
+// KubernetesEntitiesValidationError is the validation error returned by
+// KubernetesEntities.Validate if the designated constraints aren't met.
+type KubernetesEntitiesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e KubernetesEntitiesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e KubernetesEntitiesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e KubernetesEntitiesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e KubernetesEntitiesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e KubernetesEntitiesValidationError) ErrorName() string {
+	return "KubernetesEntitiesValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e KubernetesEntitiesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sKubernetesEntities.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = KubernetesEntitiesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = KubernetesEntitiesValidationError{}
+
+// Validate checks the field values on CatalogRequirement with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *CatalogRequirement) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if v, ok := interface{}(m.GetK8S()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CatalogRequirementValidationError{
+				field:  "K8S",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CatalogRequirementValidationError is the validation error returned by
+// CatalogRequirement.Validate if the designated constraints aren't met.
+type CatalogRequirementValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CatalogRequirementValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CatalogRequirementValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CatalogRequirementValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CatalogRequirementValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CatalogRequirementValidationError) ErrorName() string {
+	return "CatalogRequirementValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CatalogRequirementValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCatalogRequirement.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CatalogRequirementValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CatalogRequirementValidationError{}
+
+// Validate checks the field values on ApplicationLogo with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *ApplicationLogo) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Src
+
+	// no validation rules for Type
+
+	// no validation rules for Size
+
+	return nil
+}
+
+// ApplicationLogoValidationError is the validation error returned by
+// ApplicationLogo.Validate if the designated constraints aren't met.
+type ApplicationLogoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationLogoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationLogoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationLogoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationLogoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationLogoValidationError) ErrorName() string { return "ApplicationLogoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApplicationLogoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplicationLogo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationLogoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationLogoValidationError{}
+
+// Validate checks the field values on CatalogMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *CatalogMetadata) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for ApiVersion
+
+	// no validation rules for Kind
+
+	// no validation rules for Name
+
+	// no validation rules for Version
+
+	// no validation rules for Description
+
+	// no validation rules for License
+
+	// no validation rules for Url
+
+	// no validation rules for Doc
+
+	if v, ok := interface{}(m.GetRequires()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CatalogMetadataValidationError{
+				field:  "Requires",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if v, ok := interface{}(m.GetLogo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CatalogMetadataValidationError{
+				field:  "Logo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// CatalogMetadataValidationError is the validation error returned by
+// CatalogMetadata.Validate if the designated constraints aren't met.
+type CatalogMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CatalogMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CatalogMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CatalogMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CatalogMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CatalogMetadataValidationError) ErrorName() string { return "CatalogMetadataValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CatalogMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCatalogMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CatalogMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CatalogMetadataValidationError{}

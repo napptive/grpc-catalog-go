@@ -203,6 +203,24 @@
       },
       "title": "ApplicationList with a list of application resume"
     },
+    "catalogApplicationLogo": {
+      "type": "object",
+      "properties": {
+        "src": {
+          "type": "string",
+          "title": "Src with the src URL"
+        },
+        "type": {
+          "type": "string",
+          "title": "Type with the logo type (p.e: image/png)"
+        },
+        "size": {
+          "type": "string",
+          "title": "Size with the logo size (p.e. 120x120)"
+        }
+      },
+      "title": "ApplicationLogo represents the application logo"
+    },
     "catalogApplicationSummary": {
       "type": "object",
       "properties": {
@@ -224,6 +242,83 @@
         }
       },
       "title": "ApplicationSummary with a resume of an application"
+    },
+    "catalogCatalogMetadata": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "title": "ApiVersion with the version of the metadata api"
+        },
+        "kind": {
+          "type": "string",
+          "title": "Kind with the kind of the metadata"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name with the name of the application"
+        },
+        "version": {
+          "type": "string",
+          "title": "Version with the version of the application"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description with the application description"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags with the application tags. In the future, these tags will facilitate searches"
+        },
+        "license": {
+          "type": "string",
+          "title": "license with the catalog license"
+        },
+        "url": {
+          "type": "string",
+          "title": "Url with the URL"
+        },
+        "doc": {
+          "type": "string",
+          "title": "Doc with the URL to documentation"
+        },
+        "requires": {
+          "$ref": "#/definitions/catalogCatalogRequirement",
+          "title": "Requires with the application requirement"
+        },
+        "logo": {
+          "$ref": "#/definitions/catalogApplicationLogo",
+          "title": "Logo with the application logo"
+        }
+      },
+      "title": "CatalogMetadata represents the metadata info"
+    },
+    "catalogCatalogRequirement": {
+      "type": "object",
+      "properties": {
+        "traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Traits with the application traits"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Scopes with the application scopes"
+        },
+        "k8s": {
+          "$ref": "#/definitions/catalogKubernetesEntities",
+          "title": "K8s with all the K8s entities needed"
+        }
+      },
+      "title": "CatalogRequirement with the application requirements"
     },
     "catalogDownloadApplicationRequest": {
       "type": "object",
@@ -275,18 +370,40 @@
           "type": "string",
           "title": "Tag with the tag of the application"
         },
-        "medata_file": {
+        "metadata_file": {
           "type": "string",
           "format": "byte",
           "title": "MetadataFile with the content of metadata file"
         },
-        "app_conf_file": {
+        "readme_file": {
           "type": "string",
           "format": "byte",
-          "title": "AppConfFile with the content of app_config file"
+          "title": "ReadmeFile with the content of app_config file"
+        },
+        "metadata": {
+          "$ref": "#/definitions/catalogCatalogMetadata",
+          "title": "Metadata with the metadata object"
         }
       },
       "title": "InfoApplicationResponse with the response of an application"
+    },
+    "catalogKubernetesEntities": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string",
+          "title": "ApiVersion with the entity version"
+        },
+        "type": {
+          "type": "string",
+          "title": "Type with the entity type"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name with the entity name"
+        }
+      },
+      "title": "KubernetesEntities with the application K8s entities"
     },
     "catalogRemoveApplicationRequest": {
       "type": "object",

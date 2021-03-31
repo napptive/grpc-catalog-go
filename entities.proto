@@ -54,9 +54,11 @@ message InfoApplicationResponse {
   // Tag with the tag of the application
   string tag = 3;
   // MetadataFile with the content of metadata file
-  bytes medata_file = 4;
-  // AppConfFile with the content of app_config file
-  bytes app_conf_file = 5;
+  bytes metadata_file = 4;
+  // ReadmeFile with the content of app_config file
+  bytes readme_file = 5;
+  // Metadata with the metadata object
+  CatalogMetadata metadata = 6;
 }
 
 // ApplicationSummary with a resume of an application
@@ -74,4 +76,60 @@ message ApplicationSummary {
 // ApplicationList with a list of application resume
 message ApplicationList {
   repeated ApplicationSummary applications = 1;
+}
+
+// KubernetesEntities with the application K8s entities
+message KubernetesEntities {
+  // ApiVersion with the entity version
+  string api_version = 1;
+  // Type with the entity type
+  string type = 2;
+  // Name with the entity name
+  string name = 3;
+}
+
+// CatalogRequirement with the application requirements
+message CatalogRequirement {
+  // Traits with the application traits
+  repeated string traits = 1;
+  // Scopes with the application scopes
+  repeated string scopes = 2;
+  // K8s with all the K8s entities needed
+  KubernetesEntities k8s = 3;
+}
+
+// ApplicationLogo represents the application logo
+message ApplicationLogo {
+  // Src with the src URL
+  string src = 1;
+  // Type with the logo type (p.e: image/png)
+  string type = 2;
+  // Size with the logo size (p.e. 120x120)
+  string size = 3;
+}
+
+// CatalogMetadata represents the metadata info
+message CatalogMetadata {
+  // ApiVersion with the version of the metadata api
+  string api_version = 1;
+  // Kind with the kind of the metadata
+  string kind = 2;
+  // Name with the name of the application
+  string name = 3;
+  // Version with the version of the application
+  string version = 4;
+  // Description with the application description
+  string description = 5;
+  // Tags with the application tags. In the future, these tags will facilitate searches
+  repeated string tags = 6;
+  // license with the catalog license
+  string license = 7;
+  // Url with the URL
+  string url = 8;
+  // Doc with the URL to documentation
+  string doc = 9;
+  // Requires with the application requirement
+  CatalogRequirement requires = 10;
+  // Logo with the application logo
+  ApplicationLogo logo = 11;
 }
