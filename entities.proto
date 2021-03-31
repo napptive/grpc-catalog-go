@@ -82,8 +82,8 @@ message ApplicationList {
 message KubernetesEntities {
   // ApiVersion with the entity version
   string api_version = 1;
-  // Type with the entity type
-  string type = 2;
+  // Kind with the entity type
+  string kind = 2;
   // Name with the entity name
   string name = 3;
 }

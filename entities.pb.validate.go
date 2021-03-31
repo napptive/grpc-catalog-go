@@ -667,7 +667,7 @@ func (m *KubernetesEntities) Validate() error {
 
 	// no validation rules for ApiVersion
 
-	// no validation rules for Type
+	// no validation rules for Kind
 
 	// no validation rules for Name
 

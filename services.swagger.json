@@ -400,9 +400,9 @@
           "type": "string",
           "title": "ApiVersion with the entity version"
         },
-        "type": {
+        "kind": {
           "type": "string",
-          "title": "Type with the entity type"
+          "title": "Kind with the entity type"
         },
         "name": {
           "type": "string",
