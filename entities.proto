@@ -95,7 +95,7 @@ message CatalogRequirement {
   // Scopes with the application scopes
   repeated string scopes = 2;
   // K8s with all the K8s entities needed
-  KubernetesEntities k8s = 3;
+  repeated KubernetesEntities k8s = 3;
 }
 
 // ApplicationLogo represents the application logo
@@ -131,5 +131,5 @@ message CatalogMetadata {
   // Requires with the application requirement
   CatalogRequirement requires = 10;
   // Logo with the application logo
-  ApplicationLogo logo = 11;
+  repeated ApplicationLogo logo = 11;
 }

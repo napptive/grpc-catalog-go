@@ -738,14 +738,19 @@ func (m *CatalogRequirement) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetK8S()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CatalogRequirementValidationError{
-				field:  "K8S",
-				reason: "embedded message failed validation",
-				cause:  err,
+	for idx, item := range m.GetK8S() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CatalogRequirementValidationError{
+					field:  fmt.Sprintf("K8S[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
 	}
 
 	return nil
@@ -912,14 +917,19 @@ func (m *CatalogMetadata) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetLogo()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CatalogMetadataValidationError{
-				field:  "Logo",
-				reason: "embedded message failed validation",
-				cause:  err,
+	for idx, item := range m.GetLogo() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CatalogMetadataValidationError{
+					field:  fmt.Sprintf("Logo[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
+
 	}
 
 	return nil

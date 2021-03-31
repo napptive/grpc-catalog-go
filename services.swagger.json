@@ -290,7 +290,10 @@
           "title": "Requires with the application requirement"
         },
         "logo": {
-          "$ref": "#/definitions/catalogApplicationLogo",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/catalogApplicationLogo"
+          },
           "title": "Logo with the application logo"
         }
       },
@@ -314,7 +317,10 @@
           "title": "Scopes with the application scopes"
         },
         "k8s": {
-          "$ref": "#/definitions/catalogKubernetesEntities",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/catalogKubernetesEntities"
+          },
           "title": "K8s with all the K8s entities needed"
         }
       },
