@@ -11,35 +11,35 @@ import "google/api/annotations.proto";
 
 // Catalog related operations
 service Catalog {
-  // Add a new application in the catalog
+  // Add a new application to the catalog.
   rpc Add (stream AddApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
       post: "/v0/catalog/add"
       body: "*"
     };
   }
-  // Download an application from catalog
+  // Download an application from the catalog.
   rpc Download(DownloadApplicationRequest) returns (stream FileInfo) {
     option (google.api.http) = {
       post: "/v0/catalog/download",
       body: "*"
     };
   }
-  //Remove an application from the catalog
+  //Remove an application from the catalog.
   rpc Remove (RemoveApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
       post: "/v0/catalog/remove"
       body: "*"
     };
   }
-
-  rpc List (catalog_common.EmptyRequest) returns (ApplicationList) {
+  // List the applications in the catalog.
+  rpc List (ListApplicationsRequest) returns (ApplicationList) {
     option (google.api.http) = {
       get: "/v0/catalog/list"
     };
   }
 
-  // Info returns the detail of a given application
+  // Info returns the detail of a given application.
   rpc Info (InfoApplicationRequest) returns (InfoApplicationResponse){
     option (google.api.http) = {
     post: "/v0/catalog/info"

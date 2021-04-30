@@ -13,7 +13,7 @@
   "paths": {
     "/v0/catalog/add": {
       "post": {
-        "summary": "Add a new application in the catalog",
+        "summary": "Add a new application to the catalog.",
         "operationId": "Catalog_Add",
         "responses": {
           "200": {
@@ -47,7 +47,7 @@
     },
     "/v0/catalog/download": {
       "post": {
-        "summary": "Download an application from catalog",
+        "summary": "Download an application from the catalog.",
         "operationId": "Catalog_Download",
         "responses": {
           "200": {
@@ -89,7 +89,7 @@
     },
     "/v0/catalog/info": {
       "post": {
-        "summary": "Info returns the detail of a given application",
+        "summary": "Info returns the detail of a given application.",
         "operationId": "Catalog_Info",
         "responses": {
           "200": {
@@ -122,6 +122,7 @@
     },
     "/v0/catalog/list": {
       "get": {
+        "summary": "List the applications in the catalog.",
         "operationId": "Catalog_List",
         "responses": {
           "200": {
@@ -137,6 +138,15 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "namespace",
+            "description": "Namespace indicates that the list operation will only affect a given namespace. This value is optional.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
           "Catalog"
         ]
@@ -144,7 +154,7 @@
     },
     "/v0/catalog/remove": {
       "post": {
-        "summary": "Remove an application from the catalog",
+        "summary": "Remove an application from the catalog.",
         "operationId": "Catalog_Remove",
         "responses": {
           "200": {
@@ -180,9 +190,9 @@
     "catalogAddApplicationRequest": {
       "type": "object",
       "properties": {
-        "application_name": {
+        "application_id": {
           "type": "string",
-          "title": "ApplicationName with the name of the application\nThe Applicacion name uses the same approach as docker naming\n[catalogURL/]repoName/appName[:tag]"
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
         },
         "file": {
           "$ref": "#/definitions/catalogFileInfo",
@@ -198,17 +208,18 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/catalogApplicationSummary"
-          }
+          },
+          "description": "Applications returned as part of a given query."
         }
       },
-      "title": "ApplicationList with a list of application resume"
+      "description": "ApplicationList with a subset of application summaries."
     },
     "catalogApplicationLogo": {
       "type": "object",
       "properties": {
         "src": {
           "type": "string",
-          "title": "Src with the src URL"
+          "description": "Src with the URL to obtain the logo."
         },
         "type": {
           "type": "string",
@@ -221,29 +232,7 @@
       },
       "title": "ApplicationLogo represents the application logo"
     },
-    "catalogApplicationSummary": {
-      "type": "object",
-      "properties": {
-        "repository_name": {
-          "type": "string",
-          "title": "RepositoryName with the name of the repository"
-        },
-        "application_name": {
-          "type": "string",
-          "title": "ApplicationName with the name of the application"
-        },
-        "tag": {
-          "type": "string",
-          "title": "Tag with the tag of the application"
-        },
-        "metadata_name": {
-          "type": "string",
-          "title": "MetadataName with the name defined in metadata file"
-        }
-      },
-      "title": "ApplicationSummary with a resume of an application"
-    },
-    "catalogCatalogMetadata": {
+    "catalogApplicationMetadata": {
       "type": "object",
       "properties": {
         "api_version": {
@@ -266,40 +255,40 @@
           "type": "string",
           "title": "Description with the application description"
         },
-        "tags": {
+        "keywords": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "title": "Tags with the application tags. In the future, these tags will facilitate searches"
+          "description": "Keywords assocaited with the application. In the future, these keywords will facilitate searches."
         },
         "license": {
           "type": "string",
-          "title": "license with the catalog license"
+          "description": "License associated with the application."
         },
         "url": {
           "type": "string",
-          "title": "Url with the URL"
+          "description": "Url with application information."
         },
         "doc": {
           "type": "string",
-          "title": "Doc with the URL to documentation"
+          "description": "Doc with the application documentation URL."
         },
         "requires": {
-          "$ref": "#/definitions/catalogCatalogRequirement",
-          "title": "Requires with the application requirement"
+          "$ref": "#/definitions/catalogApplicationRequirement",
+          "description": "Requires with the application requirements."
         },
         "logo": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/catalogApplicationLogo"
           },
-          "title": "Logo with the application logo"
+          "description": "Logo of the application."
         }
       },
-      "title": "CatalogMetadata represents the metadata info"
+      "description": "ApplicationMetadata represents the metadata info as provided in the metadata.yaml file."
     },
-    "catalogCatalogRequirement": {
+    "catalogApplicationRequirement": {
       "type": "object",
       "properties": {
         "traits": {
@@ -324,14 +313,36 @@
           "title": "K8s with all the K8s entities needed"
         }
       },
-      "title": "CatalogRequirement with the application requirements"
+      "description": "ApplicationRequirement with the application requirements in terms of scopes,\ntraits or CRD that are required for the application to run."
+    },
+    "catalogApplicationSummary": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "description": "Namespace where the application is located."
+        },
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Tag associated with the catalog entry."
+        },
+        "metadata_name": {
+          "type": "string",
+          "title": "MetadataName with the name defined in metadata file"
+        }
+      },
+      "title": "ApplicationSummary with a resume of an application"
     },
     "catalogDownloadApplicationRequest": {
       "type": "object",
       "properties": {
-        "application_name": {
+        "application_id": {
           "type": "string",
-          "title": "ApplicationName with the name of the application\nThe Applicacion name uses the same approach as docker naming\n[catalogURL/]repoName/appName[:tag]"
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
         }
       },
       "title": "DownloadApplicationRequest with the request to download an application"
@@ -354,9 +365,9 @@
     "catalogInfoApplicationRequest": {
       "type": "object",
       "properties": {
-        "application_name": {
+        "application_id": {
           "type": "string",
-          "title": "ApplicationName with the name of the application\n[catalogURL/]repoName/appName[:tag]"
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
         }
       },
       "title": "InfoApplicationRequest with the request to ask for an application"
@@ -364,9 +375,9 @@
     "catalogInfoApplicationResponse": {
       "type": "object",
       "properties": {
-        "repository_name": {
+        "namespace": {
           "type": "string",
-          "title": "RepositoryName with the name of the repository"
+          "description": "Namespace where the application is located."
         },
         "application_name": {
           "type": "string",
@@ -374,7 +385,7 @@
         },
         "tag": {
           "type": "string",
-          "title": "Tag with the tag of the application"
+          "description": "Tag associated with the catalog entry."
         },
         "metadata_file": {
           "type": "string",
@@ -387,7 +398,7 @@
           "title": "ReadmeFile with the content of app_config file"
         },
         "metadata": {
-          "$ref": "#/definitions/catalogCatalogMetadata",
+          "$ref": "#/definitions/catalogApplicationMetadata",
           "title": "Metadata with the metadata object"
         }
       },
@@ -414,9 +425,9 @@
     "catalogRemoveApplicationRequest": {
       "type": "object",
       "properties": {
-        "application_name": {
+        "application_id": {
           "type": "string",
-          "title": "ApplicationName with the name of the application\n[catalogURL/]repoName/appName[:tag]"
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
         }
       },
       "title": "RemoveApplicationRequest with the request to remove an application"

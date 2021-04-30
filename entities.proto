@@ -15,66 +15,69 @@ message FileInfo {
 
 // AddApplicationRequest with a request to add an application to catalog
 message AddApplicationRequest {
-  // ApplicationName with the name of the application
-  // The Applicacion name uses the same approach as docker naming
-  // [catalogURL/]repoName/appName[:tag]
-  string application_name = 1 [(validate.rules).string.min_len = 1];
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
   // Files with all the application files
   FileInfo file = 2;
 }
 
 // DownloadApplicationRequest with the request to download an application
 message DownloadApplicationRequest {
-  // ApplicationName with the name of the application
-  // The Applicacion name uses the same approach as docker naming
-  // [catalogURL/]repoName/appName[:tag]
-  string application_name = 1 [(validate.rules).string.min_len = 1];
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
 }
 
 // RemoveApplicationRequest with the request to remove an application
 message RemoveApplicationRequest {
-  // ApplicationName with the name of the application
-  // [catalogURL/]repoName/appName[:tag]
-  string application_name = 1 [(validate.rules).string.min_len = 1];
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
 }
 
 // InfoApplicationRequest with the request to ask for an application
 message InfoApplicationRequest {
-  // ApplicationName with the name of the application
-  // [catalogURL/]repoName/appName[:tag]
-  string application_name = 1 [(validate.rules).string.min_len = 1];
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
 }
 
 // InfoApplicationResponse with the response of an application
 message InfoApplicationResponse {
-  // RepositoryName with the name of the repository
-  string repository_name = 1;
+  // Namespace where the application is located.
+  string namespace = 1;
   // ApplicationName with the name of the application
   string application_name = 2;
-  // Tag with the tag of the application
+  // Tag associated with the catalog entry.
   string tag = 3;
   // MetadataFile with the content of metadata file
   bytes metadata_file = 4;
   // ReadmeFile with the content of app_config file
   bytes readme_file = 5;
   // Metadata with the metadata object
-  CatalogMetadata metadata = 6;
+  ApplicationMetadata metadata = 6;
 }
 
 // ApplicationSummary with a resume of an application
 message ApplicationSummary {
-  // RepositoryName with the name of the repository
-  string repository_name = 1;
+  // Namespace where the application is located.
+  string namespace = 1;
   // ApplicationName with the name of the application
   string application_name = 2;
-  // Tag with the tag of the application
+  // Tag associated with the catalog entry.
   string tag = 3;
   // MetadataName with the name defined in metadata file
   string metadata_name = 4;
 }
 
-// ApplicationList with a list of application resume
+// ApplicationList with a subset of application summaries.
 message ApplicationList {
+  // Applications returned as part of a given query.
   repeated ApplicationSummary applications = 1;
 }
 
@@ -88,8 +91,9 @@ message KubernetesEntities {
   string name = 3;
 }
 
-// CatalogRequirement with the application requirements
-message CatalogRequirement {
+// ApplicationRequirement with the application requirements in terms of scopes,
+// traits or CRD that are required for the application to run.
+message ApplicationRequirement {
   // Traits with the application traits
   repeated string traits = 1;
   // Scopes with the application scopes
@@ -100,7 +104,7 @@ message CatalogRequirement {
 
 // ApplicationLogo represents the application logo
 message ApplicationLogo {
-  // Src with the src URL
+  // Src with the URL to obtain the logo.
   string src = 1;
   // Type with the logo type (p.e: image/png)
   string type = 2;
@@ -108,8 +112,8 @@ message ApplicationLogo {
   string size = 3;
 }
 
-// CatalogMetadata represents the metadata info
-message CatalogMetadata {
+// ApplicationMetadata represents the metadata info as provided in the metadata.yaml file.
+message ApplicationMetadata {
   // ApiVersion with the version of the metadata api
   string api_version = 1;
   // Kind with the kind of the metadata
@@ -120,16 +124,22 @@ message CatalogMetadata {
   string version = 4;
   // Description with the application description
   string description = 5;
-  // Tags with the application tags. In the future, these tags will facilitate searches
-  repeated string tags = 6;
-  // license with the catalog license
+  // Keywords assocaited with the application. In the future, these keywords will facilitate searches.
+  repeated string keywords = 6;
+  // License associated with the application.
   string license = 7;
-  // Url with the URL
+  // Url with application information.
   string url = 8;
-  // Doc with the URL to documentation
+  // Doc with the application documentation URL.
   string doc = 9;
-  // Requires with the application requirement
-  CatalogRequirement requires = 10;
-  // Logo with the application logo
+  // Requires with the application requirements.
+  ApplicationRequirement requires = 10;
+  // Logo of the application.
   repeated ApplicationLogo logo = 11;
+}
+
+// ListApplicationsRequest with the options available when listing applications.
+message ListApplicationsRequest {
+    // Namespace indicates that the list operation will only affect a given namespace. This value is optional.
+    string namespace = 1;
 }

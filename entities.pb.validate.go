@@ -117,9 +117,9 @@ func (m *AddApplicationRequest) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetApplicationName()) < 1 {
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
 		return AddApplicationRequestValidationError{
-			field:  "ApplicationName",
+			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
 	}
@@ -201,9 +201,9 @@ func (m *DownloadApplicationRequest) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetApplicationName()) < 1 {
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
 		return DownloadApplicationRequestValidationError{
-			field:  "ApplicationName",
+			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
 	}
@@ -275,9 +275,9 @@ func (m *RemoveApplicationRequest) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetApplicationName()) < 1 {
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
 		return RemoveApplicationRequestValidationError{
-			field:  "ApplicationName",
+			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
 	}
@@ -349,9 +349,9 @@ func (m *InfoApplicationRequest) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetApplicationName()) < 1 {
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
 		return InfoApplicationRequestValidationError{
-			field:  "ApplicationName",
+			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
 	}
@@ -423,7 +423,7 @@ func (m *InfoApplicationResponse) Validate() error {
 		return nil
 	}
 
-	// no validation rules for RepositoryName
+	// no validation rules for Namespace
 
 	// no validation rules for ApplicationName
 
@@ -510,7 +510,7 @@ func (m *ApplicationSummary) Validate() error {
 		return nil
 	}
 
-	// no validation rules for RepositoryName
+	// no validation rules for Namespace
 
 	// no validation rules for ApplicationName
 
@@ -730,10 +730,10 @@ var _ interface {
 	ErrorName() string
 } = KubernetesEntitiesValidationError{}
 
-// Validate checks the field values on CatalogRequirement with the rules
+// Validate checks the field values on ApplicationRequirement with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *CatalogRequirement) Validate() error {
+func (m *ApplicationRequirement) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -743,7 +743,7 @@ func (m *CatalogRequirement) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return CatalogRequirementValidationError{
+				return ApplicationRequirementValidationError{
 					field:  fmt.Sprintf("K8S[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -756,9 +756,9 @@ func (m *CatalogRequirement) Validate() error {
 	return nil
 }
 
-// CatalogRequirementValidationError is the validation error returned by
-// CatalogRequirement.Validate if the designated constraints aren't met.
-type CatalogRequirementValidationError struct {
+// ApplicationRequirementValidationError is the validation error returned by
+// ApplicationRequirement.Validate if the designated constraints aren't met.
+type ApplicationRequirementValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -766,24 +766,24 @@ type CatalogRequirementValidationError struct {
 }
 
 // Field function returns field value.
-func (e CatalogRequirementValidationError) Field() string { return e.field }
+func (e ApplicationRequirementValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CatalogRequirementValidationError) Reason() string { return e.reason }
+func (e ApplicationRequirementValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CatalogRequirementValidationError) Cause() error { return e.cause }
+func (e ApplicationRequirementValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CatalogRequirementValidationError) Key() bool { return e.key }
+func (e ApplicationRequirementValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CatalogRequirementValidationError) ErrorName() string {
-	return "CatalogRequirementValidationError"
+func (e ApplicationRequirementValidationError) ErrorName() string {
+	return "ApplicationRequirementValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e CatalogRequirementValidationError) Error() string {
+func (e ApplicationRequirementValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -795,14 +795,14 @@ func (e CatalogRequirementValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCatalogRequirement.%s: %s%s",
+		"invalid %sApplicationRequirement.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CatalogRequirementValidationError{}
+var _ error = ApplicationRequirementValidationError{}
 
 var _ interface {
 	Field() string
@@ -810,7 +810,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CatalogRequirementValidationError{}
+} = ApplicationRequirementValidationError{}
 
 // Validate checks the field values on ApplicationLogo with the rules defined
 // in the proto definition for this message. If any rules are violated, an
@@ -883,10 +883,10 @@ var _ interface {
 	ErrorName() string
 } = ApplicationLogoValidationError{}
 
-// Validate checks the field values on CatalogMetadata with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
-func (m *CatalogMetadata) Validate() error {
+// Validate checks the field values on ApplicationMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ApplicationMetadata) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -909,7 +909,7 @@ func (m *CatalogMetadata) Validate() error {
 
 	if v, ok := interface{}(m.GetRequires()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return CatalogMetadataValidationError{
+			return ApplicationMetadataValidationError{
 				field:  "Requires",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -922,7 +922,7 @@ func (m *CatalogMetadata) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return CatalogMetadataValidationError{
+				return ApplicationMetadataValidationError{
 					field:  fmt.Sprintf("Logo[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -935,9 +935,9 @@ func (m *CatalogMetadata) Validate() error {
 	return nil
 }
 
-// CatalogMetadataValidationError is the validation error returned by
-// CatalogMetadata.Validate if the designated constraints aren't met.
-type CatalogMetadataValidationError struct {
+// ApplicationMetadataValidationError is the validation error returned by
+// ApplicationMetadata.Validate if the designated constraints aren't met.
+type ApplicationMetadataValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -945,22 +945,24 @@ type CatalogMetadataValidationError struct {
 }
 
 // Field function returns field value.
-func (e CatalogMetadataValidationError) Field() string { return e.field }
+func (e ApplicationMetadataValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CatalogMetadataValidationError) Reason() string { return e.reason }
+func (e ApplicationMetadataValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CatalogMetadataValidationError) Cause() error { return e.cause }
+func (e ApplicationMetadataValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CatalogMetadataValidationError) Key() bool { return e.key }
+func (e ApplicationMetadataValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CatalogMetadataValidationError) ErrorName() string { return "CatalogMetadataValidationError" }
+func (e ApplicationMetadataValidationError) ErrorName() string {
+	return "ApplicationMetadataValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e CatalogMetadataValidationError) Error() string {
+func (e ApplicationMetadataValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -972,14 +974,14 @@ func (e CatalogMetadataValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCatalogMetadata.%s: %s%s",
+		"invalid %sApplicationMetadata.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CatalogMetadataValidationError{}
+var _ error = ApplicationMetadataValidationError{}
 
 var _ interface {
 	Field() string
@@ -987,4 +989,73 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CatalogMetadataValidationError{}
+} = ApplicationMetadataValidationError{}
+
+// Validate checks the field values on ListApplicationsRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *ListApplicationsRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Namespace
+
+	return nil
+}
+
+// ListApplicationsRequestValidationError is the validation error returned by
+// ListApplicationsRequest.Validate if the designated constraints aren't met.
+type ListApplicationsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListApplicationsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListApplicationsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListApplicationsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListApplicationsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListApplicationsRequestValidationError) ErrorName() string {
+	return "ListApplicationsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListApplicationsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListApplicationsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListApplicationsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListApplicationsRequestValidationError{}
