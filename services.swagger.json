@@ -4,6 +4,11 @@
     "title": "catalog/services.proto",
     "version": "version not set"
   },
+  "tags": [
+    {
+      "name": "Catalog"
+    }
+  ],
   "consumes": [
     "application/json"
   ],
@@ -326,13 +331,12 @@
           "type": "string",
           "title": "ApplicationName with the name of the application"
         },
-        "tag": {
-          "type": "string",
-          "description": "Tag associated with the catalog entry."
-        },
-        "metadata_name": {
-          "type": "string",
-          "title": "MetadataName with the name defined in metadata file"
+        "tag_metadata_name": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "TagMetadataName associated with the catalog entry. MetadataName indexed by tag"
         }
       },
       "title": "ApplicationSummary with a resume of an application"

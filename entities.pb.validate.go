@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // ensure the imports are used
@@ -30,30 +30,65 @@ var (
 	_ = time.Duration(0)
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
-	_ = ptypes.DynamicAny{}
+	_ = anypb.Any{}
 )
 
-// define the regex for a UUID once up-front
-var _entities_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on FileInfo with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *FileInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FileInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in FileInfoMultiError, or nil
+// if none found.
+func (m *FileInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FileInfo) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if utf8.RuneCountInString(m.GetPath()) < 1 {
-		return FileInfoValidationError{
+		err := FileInfoValidationError{
 			field:  "Path",
 			reason: "value length must be at least 1 runes",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Data
 
+	if len(errors) > 0 {
+		return FileInfoMultiError(errors)
+	}
 	return nil
 }
+
+// FileInfoMultiError is an error wrapping multiple validation errors returned
+// by FileInfo.ValidateAll() if the designated constraints aren't met.
+type FileInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FileInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FileInfoMultiError) AllErrors() []error { return m }
 
 // FileInfoValidationError is the validation error returned by
 // FileInfo.Validate if the designated constraints aren't met.
@@ -111,20 +146,57 @@ var _ interface {
 
 // Validate checks the field values on AddApplicationRequest with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *AddApplicationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddApplicationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddApplicationRequestMultiError, or nil if none found.
+func (m *AddApplicationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddApplicationRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
-		return AddApplicationRequestValidationError{
+		err := AddApplicationRequestValidationError{
 			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetFile()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetFile()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AddApplicationRequestValidationError{
+					field:  "File",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AddApplicationRequestValidationError{
+					field:  "File",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFile()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return AddApplicationRequestValidationError{
 				field:  "File",
@@ -134,8 +206,28 @@ func (m *AddApplicationRequest) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return AddApplicationRequestMultiError(errors)
+	}
 	return nil
 }
+
+// AddApplicationRequestMultiError is an error wrapping multiple validation
+// errors returned by AddApplicationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AddApplicationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddApplicationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddApplicationRequestMultiError) AllErrors() []error { return m }
 
 // AddApplicationRequestValidationError is the validation error returned by
 // AddApplicationRequest.Validate if the designated constraints aren't met.
@@ -195,21 +287,59 @@ var _ interface {
 
 // Validate checks the field values on DownloadApplicationRequest with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *DownloadApplicationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DownloadApplicationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DownloadApplicationRequestMultiError, or nil if none found.
+func (m *DownloadApplicationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DownloadApplicationRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
-		return DownloadApplicationRequestValidationError{
+		err := DownloadApplicationRequestValidationError{
 			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return DownloadApplicationRequestMultiError(errors)
+	}
 	return nil
 }
+
+// DownloadApplicationRequestMultiError is an error wrapping multiple
+// validation errors returned by DownloadApplicationRequest.ValidateAll() if
+// the designated constraints aren't met.
+type DownloadApplicationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DownloadApplicationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DownloadApplicationRequestMultiError) AllErrors() []error { return m }
 
 // DownloadApplicationRequestValidationError is the validation error returned
 // by DownloadApplicationRequest.Validate if the designated constraints aren't met.
@@ -269,21 +399,59 @@ var _ interface {
 
 // Validate checks the field values on RemoveApplicationRequest with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RemoveApplicationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoveApplicationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RemoveApplicationRequestMultiError, or nil if none found.
+func (m *RemoveApplicationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoveApplicationRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
-		return RemoveApplicationRequestValidationError{
+		err := RemoveApplicationRequestValidationError{
 			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RemoveApplicationRequestMultiError(errors)
+	}
 	return nil
 }
+
+// RemoveApplicationRequestMultiError is an error wrapping multiple validation
+// errors returned by RemoveApplicationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RemoveApplicationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoveApplicationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoveApplicationRequestMultiError) AllErrors() []error { return m }
 
 // RemoveApplicationRequestValidationError is the validation error returned by
 // RemoveApplicationRequest.Validate if the designated constraints aren't met.
@@ -343,21 +511,59 @@ var _ interface {
 
 // Validate checks the field values on InfoApplicationRequest with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *InfoApplicationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InfoApplicationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InfoApplicationRequestMultiError, or nil if none found.
+func (m *InfoApplicationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InfoApplicationRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
-		return InfoApplicationRequestValidationError{
+		err := InfoApplicationRequestValidationError{
 			field:  "ApplicationId",
 			reason: "value length must be at least 1 runes",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return InfoApplicationRequestMultiError(errors)
+	}
 	return nil
 }
+
+// InfoApplicationRequestMultiError is an error wrapping multiple validation
+// errors returned by InfoApplicationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type InfoApplicationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InfoApplicationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InfoApplicationRequestMultiError) AllErrors() []error { return m }
 
 // InfoApplicationRequestValidationError is the validation error returned by
 // InfoApplicationRequest.Validate if the designated constraints aren't met.
@@ -417,11 +623,25 @@ var _ interface {
 
 // Validate checks the field values on InfoApplicationResponse with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *InfoApplicationResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InfoApplicationResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InfoApplicationResponseMultiError, or nil if none found.
+func (m *InfoApplicationResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InfoApplicationResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for Namespace
 
@@ -433,7 +653,26 @@ func (m *InfoApplicationResponse) Validate() error {
 
 	// no validation rules for ReadmeFile
 
-	if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetMetadata()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InfoApplicationResponseValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InfoApplicationResponseValidationError{
+					field:  "Metadata",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMetadata()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return InfoApplicationResponseValidationError{
 				field:  "Metadata",
@@ -443,8 +682,28 @@ func (m *InfoApplicationResponse) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return InfoApplicationResponseMultiError(errors)
+	}
 	return nil
 }
+
+// InfoApplicationResponseMultiError is an error wrapping multiple validation
+// errors returned by InfoApplicationResponse.ValidateAll() if the designated
+// constraints aren't met.
+type InfoApplicationResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InfoApplicationResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InfoApplicationResponseMultiError) AllErrors() []error { return m }
 
 // InfoApplicationResponseValidationError is the validation error returned by
 // InfoApplicationResponse.Validate if the designated constraints aren't met.
@@ -504,22 +763,54 @@ var _ interface {
 
 // Validate checks the field values on ApplicationSummary with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *ApplicationSummary) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationSummary with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationSummaryMultiError, or nil if none found.
+func (m *ApplicationSummary) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationSummary) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for Namespace
 
 	// no validation rules for ApplicationName
 
-	// no validation rules for Tag
+	// no validation rules for TagMetadataName
 
-	// no validation rules for MetadataName
-
+	if len(errors) > 0 {
+		return ApplicationSummaryMultiError(errors)
+	}
 	return nil
 }
+
+// ApplicationSummaryMultiError is an error wrapping multiple validation errors
+// returned by ApplicationSummary.ValidateAll() if the designated constraints
+// aren't met.
+type ApplicationSummaryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationSummaryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationSummaryMultiError) AllErrors() []error { return m }
 
 // ApplicationSummaryValidationError is the validation error returned by
 // ApplicationSummary.Validate if the designated constraints aren't met.
@@ -578,17 +869,50 @@ var _ interface {
 } = ApplicationSummaryValidationError{}
 
 // Validate checks the field values on ApplicationList with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *ApplicationList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationListMultiError, or nil if none found.
+func (m *ApplicationList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	for idx, item := range m.GetApplications() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplicationListValidationError{
+						field:  fmt.Sprintf("Applications[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplicationListValidationError{
+						field:  fmt.Sprintf("Applications[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ApplicationListValidationError{
 					field:  fmt.Sprintf("Applications[%v]", idx),
@@ -600,8 +924,28 @@ func (m *ApplicationList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return ApplicationListMultiError(errors)
+	}
 	return nil
 }
+
+// ApplicationListMultiError is an error wrapping multiple validation errors
+// returned by ApplicationList.ValidateAll() if the designated constraints
+// aren't met.
+type ApplicationListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationListMultiError) AllErrors() []error { return m }
 
 // ApplicationListValidationError is the validation error returned by
 // ApplicationList.Validate if the designated constraints aren't met.
@@ -659,11 +1003,25 @@ var _ interface {
 
 // Validate checks the field values on KubernetesEntities with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *KubernetesEntities) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on KubernetesEntities with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// KubernetesEntitiesMultiError, or nil if none found.
+func (m *KubernetesEntities) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *KubernetesEntities) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for ApiVersion
 
@@ -671,8 +1029,28 @@ func (m *KubernetesEntities) Validate() error {
 
 	// no validation rules for Name
 
+	if len(errors) > 0 {
+		return KubernetesEntitiesMultiError(errors)
+	}
 	return nil
 }
+
+// KubernetesEntitiesMultiError is an error wrapping multiple validation errors
+// returned by KubernetesEntities.ValidateAll() if the designated constraints
+// aren't met.
+type KubernetesEntitiesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m KubernetesEntitiesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m KubernetesEntitiesMultiError) AllErrors() []error { return m }
 
 // KubernetesEntitiesValidationError is the validation error returned by
 // KubernetesEntities.Validate if the designated constraints aren't met.
@@ -732,16 +1110,49 @@ var _ interface {
 
 // Validate checks the field values on ApplicationRequirement with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *ApplicationRequirement) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationRequirement with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationRequirementMultiError, or nil if none found.
+func (m *ApplicationRequirement) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationRequirement) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	for idx, item := range m.GetK8S() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplicationRequirementValidationError{
+						field:  fmt.Sprintf("K8S[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplicationRequirementValidationError{
+						field:  fmt.Sprintf("K8S[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ApplicationRequirementValidationError{
 					field:  fmt.Sprintf("K8S[%v]", idx),
@@ -753,8 +1164,28 @@ func (m *ApplicationRequirement) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return ApplicationRequirementMultiError(errors)
+	}
 	return nil
 }
+
+// ApplicationRequirementMultiError is an error wrapping multiple validation
+// errors returned by ApplicationRequirement.ValidateAll() if the designated
+// constraints aren't met.
+type ApplicationRequirementMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationRequirementMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationRequirementMultiError) AllErrors() []error { return m }
 
 // ApplicationRequirementValidationError is the validation error returned by
 // ApplicationRequirement.Validate if the designated constraints aren't met.
@@ -813,12 +1244,26 @@ var _ interface {
 } = ApplicationRequirementValidationError{}
 
 // Validate checks the field values on ApplicationLogo with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *ApplicationLogo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationLogo with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationLogoMultiError, or nil if none found.
+func (m *ApplicationLogo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationLogo) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for Src
 
@@ -826,8 +1271,28 @@ func (m *ApplicationLogo) Validate() error {
 
 	// no validation rules for Size
 
+	if len(errors) > 0 {
+		return ApplicationLogoMultiError(errors)
+	}
 	return nil
 }
+
+// ApplicationLogoMultiError is an error wrapping multiple validation errors
+// returned by ApplicationLogo.ValidateAll() if the designated constraints
+// aren't met.
+type ApplicationLogoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationLogoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationLogoMultiError) AllErrors() []error { return m }
 
 // ApplicationLogoValidationError is the validation error returned by
 // ApplicationLogo.Validate if the designated constraints aren't met.
@@ -885,11 +1350,25 @@ var _ interface {
 
 // Validate checks the field values on ApplicationMetadata with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *ApplicationMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationMetadata with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationMetadataMultiError, or nil if none found.
+func (m *ApplicationMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationMetadata) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for ApiVersion
 
@@ -907,7 +1386,26 @@ func (m *ApplicationMetadata) Validate() error {
 
 	// no validation rules for Doc
 
-	if v, ok := interface{}(m.GetRequires()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRequires()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplicationMetadataValidationError{
+					field:  "Requires",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplicationMetadataValidationError{
+					field:  "Requires",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRequires()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ApplicationMetadataValidationError{
 				field:  "Requires",
@@ -920,7 +1418,26 @@ func (m *ApplicationMetadata) Validate() error {
 	for idx, item := range m.GetLogo() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplicationMetadataValidationError{
+						field:  fmt.Sprintf("Logo[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplicationMetadataValidationError{
+						field:  fmt.Sprintf("Logo[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ApplicationMetadataValidationError{
 					field:  fmt.Sprintf("Logo[%v]", idx),
@@ -932,8 +1449,28 @@ func (m *ApplicationMetadata) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return ApplicationMetadataMultiError(errors)
+	}
 	return nil
 }
+
+// ApplicationMetadataMultiError is an error wrapping multiple validation
+// errors returned by ApplicationMetadata.ValidateAll() if the designated
+// constraints aren't met.
+type ApplicationMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationMetadataMultiError) AllErrors() []error { return m }
 
 // ApplicationMetadataValidationError is the validation error returned by
 // ApplicationMetadata.Validate if the designated constraints aren't met.
@@ -993,16 +1530,50 @@ var _ interface {
 
 // Validate checks the field values on ListApplicationsRequest with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *ListApplicationsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListApplicationsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListApplicationsRequestMultiError, or nil if none found.
+func (m *ListApplicationsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListApplicationsRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Namespace
 
+	if len(errors) > 0 {
+		return ListApplicationsRequestMultiError(errors)
+	}
 	return nil
 }
+
+// ListApplicationsRequestMultiError is an error wrapping multiple validation
+// errors returned by ListApplicationsRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ListApplicationsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListApplicationsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListApplicationsRequestMultiError) AllErrors() []error { return m }
 
 // ListApplicationsRequestValidationError is the validation error returned by
 // ListApplicationsRequest.Validate if the designated constraints aren't met.

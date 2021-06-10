@@ -69,10 +69,8 @@ message ApplicationSummary {
   string namespace = 1;
   // ApplicationName with the name of the application
   string application_name = 2;
-  // Tag associated with the catalog entry.
-  string tag = 3;
-  // MetadataName with the name defined in metadata file
-  string metadata_name = 4;
+  // TagMetadataName associated with the catalog entry. MetadataName indexed by tag
+  map<string, string> tag_metadata_name = 3;
 }
 
 // ApplicationList with a subset of application summaries.
