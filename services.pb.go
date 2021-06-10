@@ -35,7 +35,7 @@ var file_catalog_services_proto_rawDesc = []byte{
 	0x6f, 0x67, 0x2d, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
 	0x65, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
 	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xff, 0x03, 0x0a, 0x07, 0x43, 0x61, 0x74, 0x61, 0x6c,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xc2, 0x04, 0x0a, 0x07, 0x43, 0x61, 0x74, 0x61, 0x6c,
 	0x6f, 0x67, 0x12, 0x5f, 0x0a, 0x03, 0x41, 0x64, 0x64, 0x12, 0x1e, 0x2e, 0x63, 0x61, 0x74, 0x61,
 	0x6c, 0x6f, 0x67, 0x2e, 0x41, 0x64, 0x64, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x63, 0x61, 0x74, 0x61,
@@ -67,40 +67,48 @@ var file_catalog_services_proto_rawDesc = []byte{
 	0x6c, 0x6f, 0x67, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1b, 0x82, 0xd3, 0xe4,
 	0x93, 0x02, 0x15, 0x22, 0x10, 0x2f, 0x76, 0x30, 0x2f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67,
-	0x2f, 0x69, 0x6e, 0x66, 0x6f, 0x3a, 0x01, 0x2a, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74, 0x69, 0x76, 0x65, 0x2f,
-	0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2d, 0x67, 0x6f, 0x3b,
-	0x67, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x67, 0x6f, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2f, 0x69, 0x6e, 0x66, 0x6f, 0x3a, 0x01, 0x2a, 0x12, 0x41, 0x0a, 0x07, 0x53, 0x75, 0x6d, 0x6d,
+	0x61, 0x72, 0x79, 0x12, 0x1c, 0x2e, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x63, 0x6f,
+	0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x18, 0x2e, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2e, 0x53, 0x75, 0x6d, 0x6d,
+	0x61, 0x72, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x35, 0x5a, 0x33, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74, 0x69,
+	0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2d,
+	0x67, 0x6f, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f,
+	0x67, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var file_catalog_services_proto_goTypes = []interface{}{
-	(*AddApplicationRequest)(nil),             // 0: catalog.AddApplicationRequest
-	(*DownloadApplicationRequest)(nil),        // 1: catalog.DownloadApplicationRequest
-	(*RemoveApplicationRequest)(nil),          // 2: catalog.RemoveApplicationRequest
-	(*ListApplicationsRequest)(nil),           // 3: catalog.ListApplicationsRequest
-	(*InfoApplicationRequest)(nil),            // 4: catalog.InfoApplicationRequest
-	(*grpc_catalog_common_go.OpResponse)(nil), // 5: catalog_common.OpResponse
-	(*FileInfo)(nil),                          // 6: catalog.FileInfo
-	(*ApplicationList)(nil),                   // 7: catalog.ApplicationList
-	(*InfoApplicationResponse)(nil),           // 8: catalog.InfoApplicationResponse
+	(*AddApplicationRequest)(nil),               // 0: catalog.AddApplicationRequest
+	(*DownloadApplicationRequest)(nil),          // 1: catalog.DownloadApplicationRequest
+	(*RemoveApplicationRequest)(nil),            // 2: catalog.RemoveApplicationRequest
+	(*ListApplicationsRequest)(nil),             // 3: catalog.ListApplicationsRequest
+	(*InfoApplicationRequest)(nil),              // 4: catalog.InfoApplicationRequest
+	(*grpc_catalog_common_go.EmptyRequest)(nil), // 5: catalog_common.EmptyRequest
+	(*grpc_catalog_common_go.OpResponse)(nil),   // 6: catalog_common.OpResponse
+	(*FileInfo)(nil),                            // 7: catalog.FileInfo
+	(*ApplicationList)(nil),                     // 8: catalog.ApplicationList
+	(*InfoApplicationResponse)(nil),             // 9: catalog.InfoApplicationResponse
+	(*SummaryResponse)(nil),                     // 10: catalog.SummaryResponse
 }
 var file_catalog_services_proto_depIdxs = []int32{
-	0, // 0: catalog.Catalog.Add:input_type -> catalog.AddApplicationRequest
-	1, // 1: catalog.Catalog.Download:input_type -> catalog.DownloadApplicationRequest
-	2, // 2: catalog.Catalog.Remove:input_type -> catalog.RemoveApplicationRequest
-	3, // 3: catalog.Catalog.List:input_type -> catalog.ListApplicationsRequest
-	4, // 4: catalog.Catalog.Info:input_type -> catalog.InfoApplicationRequest
-	5, // 5: catalog.Catalog.Add:output_type -> catalog_common.OpResponse
-	6, // 6: catalog.Catalog.Download:output_type -> catalog.FileInfo
-	5, // 7: catalog.Catalog.Remove:output_type -> catalog_common.OpResponse
-	7, // 8: catalog.Catalog.List:output_type -> catalog.ApplicationList
-	8, // 9: catalog.Catalog.Info:output_type -> catalog.InfoApplicationResponse
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: catalog.Catalog.Add:input_type -> catalog.AddApplicationRequest
+	1,  // 1: catalog.Catalog.Download:input_type -> catalog.DownloadApplicationRequest
+	2,  // 2: catalog.Catalog.Remove:input_type -> catalog.RemoveApplicationRequest
+	3,  // 3: catalog.Catalog.List:input_type -> catalog.ListApplicationsRequest
+	4,  // 4: catalog.Catalog.Info:input_type -> catalog.InfoApplicationRequest
+	5,  // 5: catalog.Catalog.Summary:input_type -> catalog_common.EmptyRequest
+	6,  // 6: catalog.Catalog.Add:output_type -> catalog_common.OpResponse
+	7,  // 7: catalog.Catalog.Download:output_type -> catalog.FileInfo
+	6,  // 8: catalog.Catalog.Remove:output_type -> catalog_common.OpResponse
+	8,  // 9: catalog.Catalog.List:output_type -> catalog.ApplicationList
+	9,  // 10: catalog.Catalog.Info:output_type -> catalog.InfoApplicationResponse
+	10, // 11: catalog.Catalog.Summary:output_type -> catalog.SummaryResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_catalog_services_proto_init() }
@@ -150,6 +158,8 @@ type CatalogClient interface {
 	List(ctx context.Context, in *ListApplicationsRequest, opts ...grpc.CallOption) (*ApplicationList, error)
 	// Info returns the detail of a given application.
 	Info(ctx context.Context, in *InfoApplicationRequest, opts ...grpc.CallOption) (*InfoApplicationResponse, error)
+	// Summary returns the catalog summary
+	Summary(ctx context.Context, in *grpc_catalog_common_go.EmptyRequest, opts ...grpc.CallOption) (*SummaryResponse, error)
 }
 
 type catalogClient struct {
@@ -253,6 +263,15 @@ func (c *catalogClient) Info(ctx context.Context, in *InfoApplicationRequest, op
 	return out, nil
 }
 
+func (c *catalogClient) Summary(ctx context.Context, in *grpc_catalog_common_go.EmptyRequest, opts ...grpc.CallOption) (*SummaryResponse, error) {
+	out := new(SummaryResponse)
+	err := c.cc.Invoke(ctx, "/catalog.Catalog/Summary", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CatalogServer is the server API for Catalog service.
 type CatalogServer interface {
 	// Add a new application to the catalog.
@@ -265,6 +284,8 @@ type CatalogServer interface {
 	List(context.Context, *ListApplicationsRequest) (*ApplicationList, error)
 	// Info returns the detail of a given application.
 	Info(context.Context, *InfoApplicationRequest) (*InfoApplicationResponse, error)
+	// Summary returns the catalog summary
+	Summary(context.Context, *grpc_catalog_common_go.EmptyRequest) (*SummaryResponse, error)
 }
 
 // UnimplementedCatalogServer can be embedded to have forward compatible implementations.
@@ -285,6 +306,9 @@ func (*UnimplementedCatalogServer) List(context.Context, *ListApplicationsReques
 }
 func (*UnimplementedCatalogServer) Info(context.Context, *InfoApplicationRequest) (*InfoApplicationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Info not implemented")
+}
+func (*UnimplementedCatalogServer) Summary(context.Context, *grpc_catalog_common_go.EmptyRequest) (*SummaryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Summary not implemented")
 }
 
 func RegisterCatalogServer(s *grpc.Server, srv CatalogServer) {
@@ -392,6 +416,24 @@ func _Catalog_Info_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Catalog_Summary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(grpc_catalog_common_go.EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServer).Summary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/catalog.Catalog/Summary",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServer).Summary(ctx, req.(*grpc_catalog_common_go.EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Catalog_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "catalog.Catalog",
 	HandlerType: (*CatalogServer)(nil),
@@ -407,6 +449,10 @@ var _Catalog_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Info",
 			Handler:    _Catalog_Info_Handler,
+		},
+		{
+			MethodName: "Summary",
+			Handler:    _Catalog_Summary_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

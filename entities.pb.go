@@ -892,6 +892,73 @@ func (x *ListApplicationsRequest) GetNamespace() string {
 	return ""
 }
 
+// SummaryResponse with a summary of the number of applications in the catalog
+type SummaryResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// NumNamespaces with the number of users (namespaces) in the catalog
+	NumNamespaces int32 `protobuf:"varint,1,opt,name=num_namespaces,json=numNamespaces,proto3" json:"num_namespaces,omitempty"`
+	// NumApplications with the number of different applications
+	NumApplications int32 `protobuf:"varint,2,opt,name=num_applications,json=numApplications,proto3" json:"num_applications,omitempty"`
+	// NumTags wit the number of the different versions of applications
+	NumTags int32 `protobuf:"varint,3,opt,name=num_tags,json=numTags,proto3" json:"num_tags,omitempty"`
+}
+
+func (x *SummaryResponse) Reset() {
+	*x = SummaryResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_catalog_entities_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SummaryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SummaryResponse) ProtoMessage() {}
+
+func (x *SummaryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_catalog_entities_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SummaryResponse.ProtoReflect.Descriptor instead.
+func (*SummaryResponse) Descriptor() ([]byte, []int) {
+	return file_catalog_entities_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *SummaryResponse) GetNumNamespaces() int32 {
+	if x != nil {
+		return x.NumNamespaces
+	}
+	return 0
+}
+
+func (x *SummaryResponse) GetNumApplications() int32 {
+	if x != nil {
+		return x.NumApplications
+	}
+	return 0
+}
+
+func (x *SummaryResponse) GetNumTags() int32 {
+	if x != nil {
+		return x.NumTags
+	}
+	return 0
+}
+
 var File_catalog_entities_proto protoreflect.FileDescriptor
 
 var file_catalog_entities_proto_rawDesc = []byte{
@@ -1004,7 +1071,15 @@ var file_catalog_entities_proto_rawDesc = []byte{
 	0x37, 0x0a, 0x17, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x6e, 0x61,
 	0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x6e,
-	0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68,
+	0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x22, 0x7e, 0x0a, 0x0f, 0x53, 0x75, 0x6d, 0x6d,
+	0x61, 0x72, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x6e,
+	0x75, 0x6d, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x0d, 0x6e, 0x75, 0x6d, 0x4e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63,
+	0x65, 0x73, 0x12, 0x29, 0x0a, 0x10, 0x6e, 0x75, 0x6d, 0x5f, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0f, 0x6e, 0x75,
+	0x6d, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x19, 0x0a,
+	0x08, 0x6e, 0x75, 0x6d, 0x5f, 0x74, 0x61, 0x67, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x07, 0x6e, 0x75, 0x6d, 0x54, 0x61, 0x67, 0x73, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68,
 	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74, 0x69, 0x76, 0x65, 0x2f,
 	0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2d, 0x67, 0x6f, 0x3b,
 	0x67, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x67, 0x6f, 0x62,
@@ -1023,7 +1098,7 @@ func file_catalog_entities_proto_rawDescGZIP() []byte {
 	return file_catalog_entities_proto_rawDescData
 }
 
-var file_catalog_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_catalog_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_catalog_entities_proto_goTypes = []interface{}{
 	(*FileInfo)(nil),                   // 0: catalog.FileInfo
 	(*AddApplicationRequest)(nil),      // 1: catalog.AddApplicationRequest
@@ -1038,12 +1113,13 @@ var file_catalog_entities_proto_goTypes = []interface{}{
 	(*ApplicationLogo)(nil),            // 10: catalog.ApplicationLogo
 	(*ApplicationMetadata)(nil),        // 11: catalog.ApplicationMetadata
 	(*ListApplicationsRequest)(nil),    // 12: catalog.ListApplicationsRequest
-	nil,                                // 13: catalog.ApplicationSummary.TagMetadataNameEntry
+	(*SummaryResponse)(nil),            // 13: catalog.SummaryResponse
+	nil,                                // 14: catalog.ApplicationSummary.TagMetadataNameEntry
 }
 var file_catalog_entities_proto_depIdxs = []int32{
 	0,  // 0: catalog.AddApplicationRequest.file:type_name -> catalog.FileInfo
 	11, // 1: catalog.InfoApplicationResponse.metadata:type_name -> catalog.ApplicationMetadata
-	13, // 2: catalog.ApplicationSummary.tag_metadata_name:type_name -> catalog.ApplicationSummary.TagMetadataNameEntry
+	14, // 2: catalog.ApplicationSummary.tag_metadata_name:type_name -> catalog.ApplicationSummary.TagMetadataNameEntry
 	6,  // 3: catalog.ApplicationList.applications:type_name -> catalog.ApplicationSummary
 	8,  // 4: catalog.ApplicationRequirement.k8s:type_name -> catalog.KubernetesEntities
 	9,  // 5: catalog.ApplicationMetadata.requires:type_name -> catalog.ApplicationRequirement
@@ -1217,6 +1293,18 @@ func file_catalog_entities_proto_init() {
 				return nil
 			}
 		}
+		file_catalog_entities_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SummaryResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1224,7 +1312,7 @@ func file_catalog_entities_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_catalog_entities_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

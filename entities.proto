@@ -141,3 +141,13 @@ message ListApplicationsRequest {
     // Namespace indicates that the list operation will only affect a given namespace. This value is optional.
     string namespace = 1;
 }
+
+// SummaryResponse with a summary of the number of applications in the catalog
+message SummaryResponse {
+  // NumNamespaces with the number of users (namespaces) in the catalog
+  int32 num_namespaces = 1;
+  // NumApplications with the number of different applications
+  int32 num_applications = 2;
+  // NumTags wit the number of the different versions of applications
+  int32 num_tags = 3;
+}

@@ -436,6 +436,27 @@
       },
       "title": "RemoveApplicationRequest with the request to remove an application"
     },
+    "catalogSummaryResponse": {
+      "type": "object",
+      "properties": {
+        "num_namespaces": {
+          "type": "integer",
+          "format": "int32",
+          "title": "NumNamespaces with the number of users (namespaces) in the catalog"
+        },
+        "num_applications": {
+          "type": "integer",
+          "format": "int32",
+          "title": "NumApplications with the number of different applications"
+        },
+        "num_tags": {
+          "type": "integer",
+          "format": "int32",
+          "title": "NumTags wit the number of the different versions of applications"
+        }
+      },
+      "title": "SummaryResponse with a summary of the number of applications in the catalog"
+    },
     "catalog_commonOpResponse": {
       "type": "object",
       "properties": {
