@@ -347,6 +347,10 @@
         "application_id": {
           "type": "string",
           "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
+        },
+        "compressed": {
+          "type": "boolean",
+          "title": "Compressed with a boolean to indicate if the response will be a tgz file or not"
         }
       },
       "title": "DownloadApplicationRequest with the request to download an application"

@@ -29,6 +29,8 @@ message DownloadApplicationRequest {
   // same approach as docker:
   // [catalogURL/]namespace/appName[:tag]
   string application_id = 1 [(validate.rules).string.min_len = 1];
+  // Compressed with a boolean to indicate if the response will be a tgz file or not
+  bool compressed = 2;
 }
 
 // RemoveApplicationRequest with the request to remove an application

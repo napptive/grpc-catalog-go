@@ -318,6 +318,8 @@ func (m *DownloadApplicationRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for Compressed
+
 	if len(errors) > 0 {
 		return DownloadApplicationRequestMultiError(errors)
 	}
