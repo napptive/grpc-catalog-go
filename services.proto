@@ -3,50 +3,54 @@ syntax = "proto3";
 package catalog;
 option go_package = "github.com/napptive/grpc-catalog-go;grpc_catalog_go";
 
-
 import "catalog/entities.proto";
 import "catalog-common/entities.proto";
-
 import "google/api/annotations.proto";
+
+// Note: In this case, the prefix for HTTP is /catalog/ to facilitate routing paths.
 
 // Catalog related operations
 service Catalog {
   // Add a new application to the catalog.
   rpc Add (stream AddApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
-      post: "/v0/catalog/add"
+      post: "/catalog/v0/add"
       body: "*"
     };
   }
   // Download an application from the catalog.
   rpc Download(DownloadApplicationRequest) returns (stream FileInfo) {
     option (google.api.http) = {
-      post: "/v0/catalog/download",
+      post: "/catalog/v0/download",
       body: "*"
     };
   }
   //Remove an application from the catalog.
   rpc Remove (RemoveApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
-      post: "/v0/catalog/remove"
+      post: "/catalog/v0/remove"
       body: "*"
     };
   }
   // List the applications in the catalog.
   rpc List (ListApplicationsRequest) returns (ApplicationList) {
     option (google.api.http) = {
-      get: "/v0/catalog/list"
+      post: "/catalog/v0/list"
+      body: "*"
     };
   }
-
   // Info returns the detail of a given application.
   rpc Info (InfoApplicationRequest) returns (InfoApplicationResponse){
     option (google.api.http) = {
-    post: "/v0/catalog/info"
-        body: "*"
-        };
+      post: "/catalog/v0/info"
+      body: "*"
+    };
+  }
+  // Summary returns the catalog summary
+  rpc Summary(catalog_common.EmptyRequest) returns (SummaryResponse){
+    option (google.api.http) = {
+      get: "/catalog/v0/summary"
+    };
   }
 
-  // Summary returns the catalog summary
-  rpc Summary(catalog_common.EmptyRequest) returns (SummaryResponse);
 }
