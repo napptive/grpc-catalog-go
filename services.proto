@@ -54,3 +54,10 @@ service Catalog {
   }
 
 }
+
+// NamespaceAdministration service for operations related to the namespaces. This services is
+// intended for the admin facing interface of the catalog-manager.
+service NamespaceAdministration{
+  // Delete a namespace so that the applications contained on it are not longer available.
+  rpc Delete(DeleteNamespaceRequest) returns (catalog_common.OpResponse){}
+}

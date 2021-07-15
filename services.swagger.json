@@ -7,6 +7,9 @@
   "tags": [
     {
       "name": "Catalog"
+    },
+    {
+      "name": "NamespaceAdministration"
     }
   ],
   "consumes": [

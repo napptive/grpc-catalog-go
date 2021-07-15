@@ -153,3 +153,9 @@ message SummaryResponse {
   // NumTags wit the number of the different versions of applications
   int32 num_tags = 3;
 }
+
+// DeleteNamespaceRequest with the information required to delete a namespace.
+message DeleteNamespaceRequest {
+  // Namespace where the application is located.
+  string namespace = 1 [(validate.rules).string.min_len = 1];
+}
