@@ -364,6 +364,13 @@
             "type": "string"
           },
           "title": "TagMetadataName associated with the catalog entry. MetadataName indexed by tag"
+        },
+        "summary_application_logo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "SummaryApplicationLogo logos indexed by tag"
         }
       },
       "title": "ApplicationSummary with a resume of an application"

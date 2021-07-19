@@ -763,6 +763,141 @@ var _ interface {
 	ErrorName() string
 } = InfoApplicationResponseValidationError{}
 
+// Validate checks the field values on ApplicationLogoList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ApplicationLogoList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationLogoList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApplicationLogoListMultiError, or nil if none found.
+func (m *ApplicationLogoList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationLogoList) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetLogo() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplicationLogoListValidationError{
+						field:  fmt.Sprintf("Logo[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplicationLogoListValidationError{
+						field:  fmt.Sprintf("Logo[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplicationLogoListValidationError{
+					field:  fmt.Sprintf("Logo[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ApplicationLogoListMultiError(errors)
+	}
+	return nil
+}
+
+// ApplicationLogoListMultiError is an error wrapping multiple validation
+// errors returned by ApplicationLogoList.ValidateAll() if the designated
+// constraints aren't met.
+type ApplicationLogoListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationLogoListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationLogoListMultiError) AllErrors() []error { return m }
+
+// ApplicationLogoListValidationError is the validation error returned by
+// ApplicationLogoList.Validate if the designated constraints aren't met.
+type ApplicationLogoListValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationLogoListValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationLogoListValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationLogoListValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationLogoListValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationLogoListValidationError) ErrorName() string {
+	return "ApplicationLogoListValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplicationLogoListValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplicationLogoList.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationLogoListValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationLogoListValidationError{}
+
 // Validate checks the field values on ApplicationSummary with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -790,6 +925,8 @@ func (m *ApplicationSummary) validate(all bool) error {
 	// no validation rules for ApplicationName
 
 	// no validation rules for TagMetadataName
+
+	// no validation rules for SummaryApplicationLogo
 
 	if len(errors) > 0 {
 		return ApplicationSummaryMultiError(errors)

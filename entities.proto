@@ -65,6 +65,12 @@ message InfoApplicationResponse {
   ApplicationMetadata metadata = 6;
 }
 
+// ApplicationLogoList with a list of application logo
+message ApplicationLogoList {
+  // Logo of the application.
+  repeated ApplicationLogo logo = 1;
+}
+
 // ApplicationSummary with a resume of an application
 message ApplicationSummary {
   // Namespace where the application is located.
@@ -73,6 +79,8 @@ message ApplicationSummary {
   string application_name = 2;
   // TagMetadataName associated with the catalog entry. MetadataName indexed by tag
   map<string, string> tag_metadata_name = 3;
+  // SummaryApplicationLogo logos indexed by tag
+  map<string, string> summary_application_logo = 4;
 }
 
 // ApplicationList with a subset of application summaries.
