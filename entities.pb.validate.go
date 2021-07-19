@@ -926,7 +926,41 @@ func (m *ApplicationSummary) validate(all bool) error {
 
 	// no validation rules for TagMetadataName
 
-	// no validation rules for SummaryApplicationLogo
+	for key, val := range m.GetSummaryApplicationLogo() {
+		_ = val
+
+		// no validation rules for SummaryApplicationLogo[key]
+
+		if all {
+			switch v := interface{}(val).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplicationSummaryValidationError{
+						field:  fmt.Sprintf("SummaryApplicationLogo[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplicationSummaryValidationError{
+						field:  fmt.Sprintf("SummaryApplicationLogo[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplicationSummaryValidationError{
+					field:  fmt.Sprintf("SummaryApplicationLogo[%v]", key),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return ApplicationSummaryMultiError(errors)

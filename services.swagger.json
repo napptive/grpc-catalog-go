@@ -264,6 +264,19 @@
       },
       "title": "ApplicationLogo represents the application logo"
     },
+    "catalogApplicationLogoList": {
+      "type": "object",
+      "properties": {
+        "logo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/catalogApplicationLogo"
+          },
+          "description": "Logo of the application."
+        }
+      },
+      "title": "ApplicationLogoList with a list of application logo"
+    },
     "catalogApplicationMetadata": {
       "type": "object",
       "properties": {
@@ -368,7 +381,7 @@
         "summary_application_logo": {
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/catalogApplicationLogoList"
           },
           "title": "SummaryApplicationLogo logos indexed by tag"
         }
