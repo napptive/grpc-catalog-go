@@ -60,4 +60,8 @@ service Catalog {
 service NamespaceAdministration{
   // Delete a namespace so that the applications contained on it are not longer available.
   rpc Delete(DeleteNamespaceRequest) returns (catalog_common.OpResponse){}
+  // DeleteApplication deletes an application
+  rpc DeleteApplication (RemoveApplicationRequest) returns (catalog_common.OpResponse){}
+  // List all the applications in the catalog
+  rpc List (ListApplicationsRequest) returns (ApplicationList) {}
 }
