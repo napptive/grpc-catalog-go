@@ -2020,3 +2020,137 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeleteNamespaceRequestValidationError{}
+
+// Validate checks the field values on DeployApplicationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeployApplicationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeployApplicationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeployApplicationRequestMultiError, or nil if none found.
+func (m *DeployApplicationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeployApplicationRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
+		err := DeployApplicationRequestValidationError{
+			field:  "ApplicationId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTargetEnvironmentQualifiedName()) < 1 {
+		err := DeployApplicationRequestValidationError{
+			field:  "TargetEnvironmentQualifiedName",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetTargetPlaygroundApiUrl()) < 1 {
+		err := DeployApplicationRequestValidationError{
+			field:  "TargetPlaygroundApiUrl",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeployApplicationRequestMultiError(errors)
+	}
+	return nil
+}
+
+// DeployApplicationRequestMultiError is an error wrapping multiple validation
+// errors returned by DeployApplicationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type DeployApplicationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeployApplicationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeployApplicationRequestMultiError) AllErrors() []error { return m }
+
+// DeployApplicationRequestValidationError is the validation error returned by
+// DeployApplicationRequest.Validate if the designated constraints aren't met.
+type DeployApplicationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeployApplicationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeployApplicationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeployApplicationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeployApplicationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeployApplicationRequestValidationError) ErrorName() string {
+	return "DeployApplicationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeployApplicationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeployApplicationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeployApplicationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeployApplicationRequestValidationError{}

@@ -167,3 +167,22 @@ message DeleteNamespaceRequest {
   // Namespace where the application is located.
   string namespace = 1 [(validate.rules).string.min_len = 1];
 }
+
+//
+// Applications
+//
+
+// DeployApplicationRequest with the information required to send a
+// deploy request.
+message DeployApplicationRequest{
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
+  // TargetEnvironmentQualifiedName specifying the target environment in the user
+  // account as account_name/env_name.
+  string target_environment_qualified_name = 2 [(validate.rules).string.min_len = 1];
+  // TargetPlaygroundAPIURL indicating the url to which redirect the request.
+  string target_playground_api_url = 3 [(validate.rules).string.min_len = 1];
+   
+}

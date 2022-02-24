@@ -10,6 +10,9 @@
     },
     {
       "name": "NamespaceAdministration"
+    },
+    {
+      "name": "Applications"
     }
   ],
   "consumes": [
@@ -50,6 +53,39 @@
         ],
         "tags": [
           "Catalog"
+        ]
+      }
+    },
+    "/catalog/v0/app/deploy": {
+      "post": {
+        "summary": "Deploy an application on a target Playground platform. This endpoint\nwill gather the application information and send it to the target\nplayground platform.",
+        "operationId": "Applications_Deploy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalog_commonOpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogDeployApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Applications"
         ]
       }
     },
@@ -387,6 +423,24 @@
         }
       },
       "title": "ApplicationSummary with a resume of an application"
+    },
+    "catalogDeployApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string",
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
+        },
+        "target_environment_qualified_name": {
+          "type": "string",
+          "description": "TargetEnvironmentQualifiedName specifying the target environment in the user\naccount as account_name/env_name."
+        },
+        "target_playground_api_url": {
+          "type": "string",
+          "description": "TargetPlaygroundAPIURL indicating the url to which redirect the request."
+        }
+      },
+      "description": "DeployApplicationRequest with the information required to send a\ndeploy request."
     },
     "catalogDownloadApplicationRequest": {
       "type": "object",

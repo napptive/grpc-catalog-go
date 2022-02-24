@@ -89,11 +89,19 @@ var file_catalog_services_proto_rawDesc = []byte{
 	0x2e, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x70,
 	0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x1a, 0x18, 0x2e, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2e, 0x41, 0x70, 0x70, 0x6c, 0x69,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x00, 0x42, 0x35, 0x5a, 0x33,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74,
-	0x69, 0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67,
-	0x2d, 0x67, 0x6f, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67,
-	0x5f, 0x67, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x00, 0x32, 0x7a, 0x0a, 0x0c,
+	0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x6a, 0x0a, 0x06,
+	0x44, 0x65, 0x70, 0x6c, 0x6f, 0x79, 0x12, 0x21, 0x2e, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67,
+	0x2e, 0x44, 0x65, 0x70, 0x6c, 0x6f, 0x79, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x63, 0x61, 0x74, 0x61,
+	0x6c, 0x6f, 0x67, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x4f, 0x70, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x21, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x1b, 0x22, 0x16, 0x2f,
+	0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2f, 0x76, 0x30, 0x2f, 0x61, 0x70, 0x70, 0x2f, 0x64,
+	0x65, 0x70, 0x6c, 0x6f, 0x79, 0x3a, 0x01, 0x2a, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68,
+	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74, 0x69, 0x76, 0x65, 0x2f,
+	0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2d, 0x67, 0x6f, 0x3b,
+	0x67, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x67, 0x6f, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var file_catalog_services_proto_goTypes = []interface{}{
@@ -104,11 +112,12 @@ var file_catalog_services_proto_goTypes = []interface{}{
 	(*InfoApplicationRequest)(nil),              // 4: catalog.InfoApplicationRequest
 	(*grpc_catalog_common_go.EmptyRequest)(nil), // 5: catalog_common.EmptyRequest
 	(*DeleteNamespaceRequest)(nil),              // 6: catalog.DeleteNamespaceRequest
-	(*grpc_catalog_common_go.OpResponse)(nil),   // 7: catalog_common.OpResponse
-	(*FileInfo)(nil),                            // 8: catalog.FileInfo
-	(*ApplicationList)(nil),                     // 9: catalog.ApplicationList
-	(*InfoApplicationResponse)(nil),             // 10: catalog.InfoApplicationResponse
-	(*SummaryResponse)(nil),                     // 11: catalog.SummaryResponse
+	(*DeployApplicationRequest)(nil),            // 7: catalog.DeployApplicationRequest
+	(*grpc_catalog_common_go.OpResponse)(nil),   // 8: catalog_common.OpResponse
+	(*FileInfo)(nil),                            // 9: catalog.FileInfo
+	(*ApplicationList)(nil),                     // 10: catalog.ApplicationList
+	(*InfoApplicationResponse)(nil),             // 11: catalog.InfoApplicationResponse
+	(*SummaryResponse)(nil),                     // 12: catalog.SummaryResponse
 }
 var file_catalog_services_proto_depIdxs = []int32{
 	0,  // 0: catalog.Catalog.Add:input_type -> catalog.AddApplicationRequest
@@ -120,17 +129,19 @@ var file_catalog_services_proto_depIdxs = []int32{
 	6,  // 6: catalog.NamespaceAdministration.Delete:input_type -> catalog.DeleteNamespaceRequest
 	2,  // 7: catalog.NamespaceAdministration.DeleteApplication:input_type -> catalog.RemoveApplicationRequest
 	3,  // 8: catalog.NamespaceAdministration.List:input_type -> catalog.ListApplicationsRequest
-	7,  // 9: catalog.Catalog.Add:output_type -> catalog_common.OpResponse
-	8,  // 10: catalog.Catalog.Download:output_type -> catalog.FileInfo
-	7,  // 11: catalog.Catalog.Remove:output_type -> catalog_common.OpResponse
-	9,  // 12: catalog.Catalog.List:output_type -> catalog.ApplicationList
-	10, // 13: catalog.Catalog.Info:output_type -> catalog.InfoApplicationResponse
-	11, // 14: catalog.Catalog.Summary:output_type -> catalog.SummaryResponse
-	7,  // 15: catalog.NamespaceAdministration.Delete:output_type -> catalog_common.OpResponse
-	7,  // 16: catalog.NamespaceAdministration.DeleteApplication:output_type -> catalog_common.OpResponse
-	9,  // 17: catalog.NamespaceAdministration.List:output_type -> catalog.ApplicationList
-	9,  // [9:18] is the sub-list for method output_type
-	0,  // [0:9] is the sub-list for method input_type
+	7,  // 9: catalog.Applications.Deploy:input_type -> catalog.DeployApplicationRequest
+	8,  // 10: catalog.Catalog.Add:output_type -> catalog_common.OpResponse
+	9,  // 11: catalog.Catalog.Download:output_type -> catalog.FileInfo
+	8,  // 12: catalog.Catalog.Remove:output_type -> catalog_common.OpResponse
+	10, // 13: catalog.Catalog.List:output_type -> catalog.ApplicationList
+	11, // 14: catalog.Catalog.Info:output_type -> catalog.InfoApplicationResponse
+	12, // 15: catalog.Catalog.Summary:output_type -> catalog.SummaryResponse
+	8,  // 16: catalog.NamespaceAdministration.Delete:output_type -> catalog_common.OpResponse
+	8,  // 17: catalog.NamespaceAdministration.DeleteApplication:output_type -> catalog_common.OpResponse
+	10, // 18: catalog.NamespaceAdministration.List:output_type -> catalog.ApplicationList
+	8,  // 19: catalog.Applications.Deploy:output_type -> catalog_common.OpResponse
+	10, // [10:20] is the sub-list for method output_type
+	0,  // [0:10] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -150,7 +161,7 @@ func file_catalog_services_proto_init() {
 			NumEnums:      0,
 			NumMessages:   0,
 			NumExtensions: 0,
-			NumServices:   2,
+			NumServices:   3,
 		},
 		GoTypes:           file_catalog_services_proto_goTypes,
 		DependencyIndexes: file_catalog_services_proto_depIdxs,
@@ -639,6 +650,84 @@ var _NamespaceAdministration_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "List",
 			Handler:    _NamespaceAdministration_List_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "catalog/services.proto",
+}
+
+// ApplicationsClient is the client API for Applications service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type ApplicationsClient interface {
+	// Deploy an application on a target Playground platform. This endpoint
+	// will gather the application information and send it to the target
+	// playground platform.
+	Deploy(ctx context.Context, in *DeployApplicationRequest, opts ...grpc.CallOption) (*grpc_catalog_common_go.OpResponse, error)
+}
+
+type applicationsClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewApplicationsClient(cc grpc.ClientConnInterface) ApplicationsClient {
+	return &applicationsClient{cc}
+}
+
+func (c *applicationsClient) Deploy(ctx context.Context, in *DeployApplicationRequest, opts ...grpc.CallOption) (*grpc_catalog_common_go.OpResponse, error) {
+	out := new(grpc_catalog_common_go.OpResponse)
+	err := c.cc.Invoke(ctx, "/catalog.Applications/Deploy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ApplicationsServer is the server API for Applications service.
+type ApplicationsServer interface {
+	// Deploy an application on a target Playground platform. This endpoint
+	// will gather the application information and send it to the target
+	// playground platform.
+	Deploy(context.Context, *DeployApplicationRequest) (*grpc_catalog_common_go.OpResponse, error)
+}
+
+// UnimplementedApplicationsServer can be embedded to have forward compatible implementations.
+type UnimplementedApplicationsServer struct {
+}
+
+func (*UnimplementedApplicationsServer) Deploy(context.Context, *DeployApplicationRequest) (*grpc_catalog_common_go.OpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Deploy not implemented")
+}
+
+func RegisterApplicationsServer(s *grpc.Server, srv ApplicationsServer) {
+	s.RegisterService(&_Applications_serviceDesc, srv)
+}
+
+func _Applications_Deploy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeployApplicationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApplicationsServer).Deploy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/catalog.Applications/Deploy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApplicationsServer).Deploy(ctx, req.(*DeployApplicationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Applications_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "catalog.Applications",
+	HandlerType: (*ApplicationsServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Deploy",
+			Handler:    _Applications_Deploy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

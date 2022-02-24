@@ -65,3 +65,16 @@ service NamespaceAdministration{
   // List all the applications in the catalog
   rpc List (ListApplicationsRequest) returns (ApplicationList) {}
 }
+
+// Application service for operations related to the applications.
+service Applications{
+  // Deploy an application on a target Playground platform. This endpoint
+  // will gather the application information and send it to the target
+  // playground platform.
+  rpc Deploy(DeployApplicationRequest) returns (catalog_common.OpResponse){
+    option (google.api.http) = {
+      post: "/catalog/v0/app/deploy"
+      body: "*"
+    };
+  }
+}
