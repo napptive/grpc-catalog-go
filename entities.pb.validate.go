@@ -2021,6 +2021,114 @@ var _ interface {
 	ErrorName() string
 } = DeleteNamespaceRequestValidationError{}
 
+// Validate checks the field values on ApplicationInstanceConfiguration with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ApplicationInstanceConfiguration) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplicationInstanceConfiguration with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ApplicationInstanceConfigurationMultiError, or nil if none found.
+func (m *ApplicationInstanceConfiguration) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplicationInstanceConfiguration) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApplicationDefaultName
+
+	// no validation rules for SpecComponentsRaw
+
+	if len(errors) > 0 {
+		return ApplicationInstanceConfigurationMultiError(errors)
+	}
+	return nil
+}
+
+// ApplicationInstanceConfigurationMultiError is an error wrapping multiple
+// validation errors returned by
+// ApplicationInstanceConfiguration.ValidateAll() if the designated
+// constraints aren't met.
+type ApplicationInstanceConfigurationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplicationInstanceConfigurationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplicationInstanceConfigurationMultiError) AllErrors() []error { return m }
+
+// ApplicationInstanceConfigurationValidationError is the validation error
+// returned by ApplicationInstanceConfiguration.Validate if the designated
+// constraints aren't met.
+type ApplicationInstanceConfigurationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplicationInstanceConfigurationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplicationInstanceConfigurationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplicationInstanceConfigurationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplicationInstanceConfigurationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplicationInstanceConfigurationValidationError) ErrorName() string {
+	return "ApplicationInstanceConfigurationValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplicationInstanceConfigurationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplicationInstanceConfiguration.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplicationInstanceConfigurationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplicationInstanceConfigurationValidationError{}
+
 // Validate checks the field values on DeployApplicationRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2074,6 +2182,35 @@ func (m *DeployApplicationRequest) validate(all bool) error {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetInstanceConfiguration()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DeployApplicationRequestValidationError{
+					field:  "InstanceConfiguration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DeployApplicationRequestValidationError{
+					field:  "InstanceConfiguration",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInstanceConfiguration()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DeployApplicationRequestValidationError{
+				field:  "InstanceConfiguration",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -2154,3 +2291,220 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = DeployApplicationRequestValidationError{}
+
+// Validate checks the field values on GetConfigurationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetConfigurationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetConfigurationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetConfigurationRequestMultiError, or nil if none found.
+func (m *GetConfigurationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetConfigurationRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
+		err := GetConfigurationRequestValidationError{
+			field:  "ApplicationId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetConfigurationRequestMultiError(errors)
+	}
+	return nil
+}
+
+// GetConfigurationRequestMultiError is an error wrapping multiple validation
+// errors returned by GetConfigurationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetConfigurationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetConfigurationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetConfigurationRequestMultiError) AllErrors() []error { return m }
+
+// GetConfigurationRequestValidationError is the validation error returned by
+// GetConfigurationRequest.Validate if the designated constraints aren't met.
+type GetConfigurationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetConfigurationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetConfigurationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetConfigurationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetConfigurationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetConfigurationRequestValidationError) ErrorName() string {
+	return "GetConfigurationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetConfigurationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetConfigurationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetConfigurationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetConfigurationRequestValidationError{}
+
+// Validate checks the field values on GetConfigurationResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetConfigurationResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetConfigurationResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetConfigurationResponseMultiError, or nil if none found.
+func (m *GetConfigurationResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetConfigurationResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ApplicationDefaultName
+
+	// no validation rules for SpecComponentsRaw
+
+	if len(errors) > 0 {
+		return GetConfigurationResponseMultiError(errors)
+	}
+	return nil
+}
+
+// GetConfigurationResponseMultiError is an error wrapping multiple validation
+// errors returned by GetConfigurationResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetConfigurationResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetConfigurationResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetConfigurationResponseMultiError) AllErrors() []error { return m }
+
+// GetConfigurationResponseValidationError is the validation error returned by
+// GetConfigurationResponse.Validate if the designated constraints aren't met.
+type GetConfigurationResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetConfigurationResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetConfigurationResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetConfigurationResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetConfigurationResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetConfigurationResponseValidationError) ErrorName() string {
+	return "GetConfigurationResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetConfigurationResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetConfigurationResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetConfigurationResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetConfigurationResponseValidationError{}

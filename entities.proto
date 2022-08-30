@@ -172,6 +172,14 @@ message DeleteNamespaceRequest {
 // Applications
 //
 
+// ApplicationInstanceConfiguration  with the configuration with wich the application will be deployed
+message ApplicationInstanceConfiguration{
+    // ApplicationDefaultName with the application instance name by default
+    string application_default_name = 1;
+    // SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)
+    string spec_components_raw = 2;
+}
+
 // DeployApplicationRequest with the information required to send a
 // deploy request.
 message DeployApplicationRequest{
@@ -184,5 +192,22 @@ message DeployApplicationRequest{
   string target_environment_qualified_name = 2 [(validate.rules).string.min_len = 1];
   // TargetPlaygroundAPIURL indicating the url to which redirect the request.
   string target_playground_api_url = 3 [(validate.rules).string.min_len = 1];
-   
+  // InstanceConfiguration with the configuration which the application will be deployed
+  ApplicationInstanceConfiguration instance_configuration = 4;
+}
+
+// GetConfigurationRequest with the information required to ask for an application configuration
+message GetConfigurationRequest{
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+// GetConfigurationResponse with application configuration
+message GetConfigurationResponse{
+    // ApplicationDefaultName with the application instance name by default
+    string application_default_name = 1;
+    // SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)
+    string spec_components_raw = 2;
 }

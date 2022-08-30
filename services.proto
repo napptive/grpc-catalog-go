@@ -77,4 +77,10 @@ service Applications{
       body: "*"
     };
   }
+  rpc GetConfiguration(GetConfigurationRequest) returns (GetConfigurationResponse) {
+    option (google.api.http) = {
+      post: "/catalog/v0/app/configuration"
+      body: "*"
+    };
+  }
 }

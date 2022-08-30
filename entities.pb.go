@@ -1075,6 +1075,64 @@ func (x *DeleteNamespaceRequest) GetNamespace() string {
 	return ""
 }
 
+// ApplicationInstanceConfiguration  with the configuration with wich the application will be deployed
+type ApplicationInstanceConfiguration struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApplicationDefaultName with the application instance name by default
+	ApplicationDefaultName string `protobuf:"bytes,1,opt,name=application_default_name,json=applicationDefaultName,proto3" json:"application_default_name,omitempty"`
+	// SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)
+	SpecComponentsRaw string `protobuf:"bytes,2,opt,name=spec_components_raw,json=specComponentsRaw,proto3" json:"spec_components_raw,omitempty"`
+}
+
+func (x *ApplicationInstanceConfiguration) Reset() {
+	*x = ApplicationInstanceConfiguration{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_catalog_entities_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ApplicationInstanceConfiguration) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ApplicationInstanceConfiguration) ProtoMessage() {}
+
+func (x *ApplicationInstanceConfiguration) ProtoReflect() protoreflect.Message {
+	mi := &file_catalog_entities_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ApplicationInstanceConfiguration.ProtoReflect.Descriptor instead.
+func (*ApplicationInstanceConfiguration) Descriptor() ([]byte, []int) {
+	return file_catalog_entities_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *ApplicationInstanceConfiguration) GetApplicationDefaultName() string {
+	if x != nil {
+		return x.ApplicationDefaultName
+	}
+	return ""
+}
+
+func (x *ApplicationInstanceConfiguration) GetSpecComponentsRaw() string {
+	if x != nil {
+		return x.SpecComponentsRaw
+	}
+	return ""
+}
+
 // DeployApplicationRequest with the information required to send a
 // deploy request.
 type DeployApplicationRequest struct {
@@ -1091,12 +1149,14 @@ type DeployApplicationRequest struct {
 	TargetEnvironmentQualifiedName string `protobuf:"bytes,2,opt,name=target_environment_qualified_name,json=targetEnvironmentQualifiedName,proto3" json:"target_environment_qualified_name,omitempty"`
 	// TargetPlaygroundAPIURL indicating the url to which redirect the request.
 	TargetPlaygroundApiUrl string `protobuf:"bytes,3,opt,name=target_playground_api_url,json=targetPlaygroundApiUrl,proto3" json:"target_playground_api_url,omitempty"`
+	// InstanceConfiguration with the configuration which the application will be deployed
+	InstanceConfiguration *ApplicationInstanceConfiguration `protobuf:"bytes,4,opt,name=instance_configuration,json=instanceConfiguration,proto3" json:"instance_configuration,omitempty"`
 }
 
 func (x *DeployApplicationRequest) Reset() {
 	*x = DeployApplicationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_catalog_entities_proto_msgTypes[16]
+		mi := &file_catalog_entities_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1109,7 +1169,7 @@ func (x *DeployApplicationRequest) String() string {
 func (*DeployApplicationRequest) ProtoMessage() {}
 
 func (x *DeployApplicationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_catalog_entities_proto_msgTypes[16]
+	mi := &file_catalog_entities_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1122,7 +1182,7 @@ func (x *DeployApplicationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeployApplicationRequest.ProtoReflect.Descriptor instead.
 func (*DeployApplicationRequest) Descriptor() ([]byte, []int) {
-	return file_catalog_entities_proto_rawDescGZIP(), []int{16}
+	return file_catalog_entities_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *DeployApplicationRequest) GetApplicationId() string {
@@ -1142,6 +1202,122 @@ func (x *DeployApplicationRequest) GetTargetEnvironmentQualifiedName() string {
 func (x *DeployApplicationRequest) GetTargetPlaygroundApiUrl() string {
 	if x != nil {
 		return x.TargetPlaygroundApiUrl
+	}
+	return ""
+}
+
+func (x *DeployApplicationRequest) GetInstanceConfiguration() *ApplicationInstanceConfiguration {
+	if x != nil {
+		return x.InstanceConfiguration
+	}
+	return nil
+}
+
+// GetConfigurationRequest with the information required to ask for an application configuration
+type GetConfigurationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApplicationId with the identifier of an application using the
+	// same approach as docker:
+	// [catalogURL/]namespace/appName[:tag]
+	ApplicationId string `protobuf:"bytes,1,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+}
+
+func (x *GetConfigurationRequest) Reset() {
+	*x = GetConfigurationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_catalog_entities_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetConfigurationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConfigurationRequest) ProtoMessage() {}
+
+func (x *GetConfigurationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_catalog_entities_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConfigurationRequest.ProtoReflect.Descriptor instead.
+func (*GetConfigurationRequest) Descriptor() ([]byte, []int) {
+	return file_catalog_entities_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetConfigurationRequest) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+// GetConfigurationResponse with application configuration
+type GetConfigurationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// ApplicationDefaultName with the application instance name by default
+	ApplicationDefaultName string `protobuf:"bytes,1,opt,name=application_default_name,json=applicationDefaultName,proto3" json:"application_default_name,omitempty"`
+	// SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)
+	SpecComponentsRaw string `protobuf:"bytes,2,opt,name=spec_components_raw,json=specComponentsRaw,proto3" json:"spec_components_raw,omitempty"`
+}
+
+func (x *GetConfigurationResponse) Reset() {
+	*x = GetConfigurationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_catalog_entities_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetConfigurationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetConfigurationResponse) ProtoMessage() {}
+
+func (x *GetConfigurationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_catalog_entities_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetConfigurationResponse.ProtoReflect.Descriptor instead.
+func (*GetConfigurationResponse) Descriptor() ([]byte, []int) {
+	return file_catalog_entities_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *GetConfigurationResponse) GetApplicationDefaultName() string {
+	if x != nil {
+		return x.ApplicationDefaultName
+	}
+	return ""
+}
+
+func (x *GetConfigurationResponse) GetSpecComponentsRaw() string {
+	if x != nil {
+		return x.SpecComponentsRaw
 	}
 	return ""
 }
@@ -1290,25 +1466,54 @@ var file_catalog_entities_proto_rawDesc = []byte{
 	0x65, 0x74, 0x65, 0x4e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x12, 0x25, 0x0a, 0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52,
-	0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x22, 0xe2, 0x01, 0x0a, 0x18, 0x44,
-	0x65, 0x70, 0x6c, 0x6f, 0x79, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x0e, 0x61, 0x70, 0x70, 0x6c, 0x69,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42,
-	0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0d, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x52, 0x0a, 0x21, 0x74, 0x61, 0x72, 0x67, 0x65,
-	0x74, 0x5f, 0x65, 0x6e, 0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x71, 0x75,
-	0x61, 0x6c, 0x69, 0x66, 0x69, 0x65, 0x64, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x1e, 0x74, 0x61, 0x72,
-	0x67, 0x65, 0x74, 0x45, 0x6e, 0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x51, 0x75,
-	0x61, 0x6c, 0x69, 0x66, 0x69, 0x65, 0x64, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x42, 0x0a, 0x19, 0x74,
-	0x61, 0x72, 0x67, 0x65, 0x74, 0x5f, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64,
-	0x5f, 0x61, 0x70, 0x69, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07,
-	0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x16, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x50,
-	0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x41, 0x70, 0x69, 0x55, 0x72, 0x6c, 0x42,
-	0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6e, 0x61,
-	0x70, 0x70, 0x74, 0x69, 0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x63, 0x61, 0x74, 0x61,
-	0x6c, 0x6f, 0x67, 0x2d, 0x67, 0x6f, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x61, 0x74, 0x61,
-	0x6c, 0x6f, 0x67, 0x5f, 0x67, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x22, 0x8c, 0x01, 0x0a, 0x20, 0x41,
+	0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e,
+	0x63, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x38, 0x0a, 0x18, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64,
+	0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x16, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65,
+	0x66, 0x61, 0x75, 0x6c, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x2e, 0x0a, 0x13, 0x73, 0x70, 0x65,
+	0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x73, 0x5f, 0x72, 0x61, 0x77,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x11, 0x73, 0x70, 0x65, 0x63, 0x43, 0x6f, 0x6d, 0x70,
+	0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x73, 0x52, 0x61, 0x77, 0x22, 0xc4, 0x02, 0x0a, 0x18, 0x44, 0x65,
+	0x70, 0x6c, 0x6f, 0x79, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x0e, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07,
+	0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0d, 0x61, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x52, 0x0a, 0x21, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74,
+	0x5f, 0x65, 0x6e, 0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x71, 0x75, 0x61,
+	0x6c, 0x69, 0x66, 0x69, 0x65, 0x64, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x1e, 0x74, 0x61, 0x72, 0x67,
+	0x65, 0x74, 0x45, 0x6e, 0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x51, 0x75, 0x61,
+	0x6c, 0x69, 0x66, 0x69, 0x65, 0x64, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x42, 0x0a, 0x19, 0x74, 0x61,
+	0x72, 0x67, 0x65, 0x74, 0x5f, 0x70, 0x6c, 0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x5f,
+	0x61, 0x70, 0x69, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa,
+	0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x16, 0x74, 0x61, 0x72, 0x67, 0x65, 0x74, 0x50, 0x6c,
+	0x61, 0x79, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x41, 0x70, 0x69, 0x55, 0x72, 0x6c, 0x12, 0x60,
+	0x0a, 0x16, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69,
+	0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x29,
+	0x2e, 0x63, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2e, 0x41, 0x70, 0x70, 0x6c, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x66,
+	0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x15, 0x69, 0x6e, 0x73, 0x74, 0x61,
+	0x6e, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x49, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x0e, 0x61,
+	0x70, 0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x10, 0x01, 0x52, 0x0d, 0x61, 0x70,
+	0x70, 0x6c, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x84, 0x01, 0x0a, 0x18,
+	0x47, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x38, 0x0a, 0x18, 0x61, 0x70, 0x70, 0x6c,
+	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x5f,
+	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x16, 0x61, 0x70, 0x70, 0x6c,
+	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74, 0x4e, 0x61,
+	0x6d, 0x65, 0x12, 0x2e, 0x0a, 0x13, 0x73, 0x70, 0x65, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x70, 0x6f,
+	0x6e, 0x65, 0x6e, 0x74, 0x73, 0x5f, 0x72, 0x61, 0x77, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x11, 0x73, 0x70, 0x65, 0x63, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x73, 0x52,
+	0x61, 0x77, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x6e, 0x61, 0x70, 0x70, 0x74, 0x69, 0x76, 0x65, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x63,
+	0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x2d, 0x67, 0x6f, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x63,
+	0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x5f, 0x67, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -1323,44 +1528,48 @@ func file_catalog_entities_proto_rawDescGZIP() []byte {
 	return file_catalog_entities_proto_rawDescData
 }
 
-var file_catalog_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_catalog_entities_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_catalog_entities_proto_goTypes = []interface{}{
-	(*FileInfo)(nil),                   // 0: catalog.FileInfo
-	(*AddApplicationRequest)(nil),      // 1: catalog.AddApplicationRequest
-	(*DownloadApplicationRequest)(nil), // 2: catalog.DownloadApplicationRequest
-	(*RemoveApplicationRequest)(nil),   // 3: catalog.RemoveApplicationRequest
-	(*InfoApplicationRequest)(nil),     // 4: catalog.InfoApplicationRequest
-	(*InfoApplicationResponse)(nil),    // 5: catalog.InfoApplicationResponse
-	(*ApplicationLogoList)(nil),        // 6: catalog.ApplicationLogoList
-	(*ApplicationSummary)(nil),         // 7: catalog.ApplicationSummary
-	(*ApplicationList)(nil),            // 8: catalog.ApplicationList
-	(*KubernetesEntities)(nil),         // 9: catalog.KubernetesEntities
-	(*ApplicationRequirement)(nil),     // 10: catalog.ApplicationRequirement
-	(*ApplicationLogo)(nil),            // 11: catalog.ApplicationLogo
-	(*ApplicationMetadata)(nil),        // 12: catalog.ApplicationMetadata
-	(*ListApplicationsRequest)(nil),    // 13: catalog.ListApplicationsRequest
-	(*SummaryResponse)(nil),            // 14: catalog.SummaryResponse
-	(*DeleteNamespaceRequest)(nil),     // 15: catalog.DeleteNamespaceRequest
-	(*DeployApplicationRequest)(nil),   // 16: catalog.DeployApplicationRequest
-	nil,                                // 17: catalog.ApplicationSummary.TagMetadataNameEntry
-	nil,                                // 18: catalog.ApplicationSummary.SummaryApplicationLogoEntry
+	(*FileInfo)(nil),                         // 0: catalog.FileInfo
+	(*AddApplicationRequest)(nil),            // 1: catalog.AddApplicationRequest
+	(*DownloadApplicationRequest)(nil),       // 2: catalog.DownloadApplicationRequest
+	(*RemoveApplicationRequest)(nil),         // 3: catalog.RemoveApplicationRequest
+	(*InfoApplicationRequest)(nil),           // 4: catalog.InfoApplicationRequest
+	(*InfoApplicationResponse)(nil),          // 5: catalog.InfoApplicationResponse
+	(*ApplicationLogoList)(nil),              // 6: catalog.ApplicationLogoList
+	(*ApplicationSummary)(nil),               // 7: catalog.ApplicationSummary
+	(*ApplicationList)(nil),                  // 8: catalog.ApplicationList
+	(*KubernetesEntities)(nil),               // 9: catalog.KubernetesEntities
+	(*ApplicationRequirement)(nil),           // 10: catalog.ApplicationRequirement
+	(*ApplicationLogo)(nil),                  // 11: catalog.ApplicationLogo
+	(*ApplicationMetadata)(nil),              // 12: catalog.ApplicationMetadata
+	(*ListApplicationsRequest)(nil),          // 13: catalog.ListApplicationsRequest
+	(*SummaryResponse)(nil),                  // 14: catalog.SummaryResponse
+	(*DeleteNamespaceRequest)(nil),           // 15: catalog.DeleteNamespaceRequest
+	(*ApplicationInstanceConfiguration)(nil), // 16: catalog.ApplicationInstanceConfiguration
+	(*DeployApplicationRequest)(nil),         // 17: catalog.DeployApplicationRequest
+	(*GetConfigurationRequest)(nil),          // 18: catalog.GetConfigurationRequest
+	(*GetConfigurationResponse)(nil),         // 19: catalog.GetConfigurationResponse
+	nil,                                      // 20: catalog.ApplicationSummary.TagMetadataNameEntry
+	nil,                                      // 21: catalog.ApplicationSummary.SummaryApplicationLogoEntry
 }
 var file_catalog_entities_proto_depIdxs = []int32{
 	0,  // 0: catalog.AddApplicationRequest.file:type_name -> catalog.FileInfo
 	12, // 1: catalog.InfoApplicationResponse.metadata:type_name -> catalog.ApplicationMetadata
 	11, // 2: catalog.ApplicationLogoList.logo:type_name -> catalog.ApplicationLogo
-	17, // 3: catalog.ApplicationSummary.tag_metadata_name:type_name -> catalog.ApplicationSummary.TagMetadataNameEntry
-	18, // 4: catalog.ApplicationSummary.summary_application_logo:type_name -> catalog.ApplicationSummary.SummaryApplicationLogoEntry
+	20, // 3: catalog.ApplicationSummary.tag_metadata_name:type_name -> catalog.ApplicationSummary.TagMetadataNameEntry
+	21, // 4: catalog.ApplicationSummary.summary_application_logo:type_name -> catalog.ApplicationSummary.SummaryApplicationLogoEntry
 	7,  // 5: catalog.ApplicationList.applications:type_name -> catalog.ApplicationSummary
 	9,  // 6: catalog.ApplicationRequirement.k8s:type_name -> catalog.KubernetesEntities
 	10, // 7: catalog.ApplicationMetadata.requires:type_name -> catalog.ApplicationRequirement
 	11, // 8: catalog.ApplicationMetadata.logo:type_name -> catalog.ApplicationLogo
-	6,  // 9: catalog.ApplicationSummary.SummaryApplicationLogoEntry.value:type_name -> catalog.ApplicationLogoList
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	16, // 9: catalog.DeployApplicationRequest.instance_configuration:type_name -> catalog.ApplicationInstanceConfiguration
+	6,  // 10: catalog.ApplicationSummary.SummaryApplicationLogoEntry.value:type_name -> catalog.ApplicationLogoList
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_catalog_entities_proto_init() }
@@ -1562,7 +1771,43 @@ func file_catalog_entities_proto_init() {
 			}
 		}
 		file_catalog_entities_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ApplicationInstanceConfiguration); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_catalog_entities_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeployApplicationRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_catalog_entities_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetConfigurationRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_catalog_entities_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetConfigurationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1580,7 +1825,7 @@ func file_catalog_entities_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_catalog_entities_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

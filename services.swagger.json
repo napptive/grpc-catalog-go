@@ -56,6 +56,38 @@
         ]
       }
     },
+    "/catalog/v0/app/configuration": {
+      "post": {
+        "operationId": "Applications_GetConfiguration",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalogGetConfigurationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogGetConfigurationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Applications"
+        ]
+      }
+    },
     "/catalog/v0/app/deploy": {
       "post": {
         "summary": "Deploy an application on a target Playground platform. This endpoint\nwill gather the application information and send it to the target\nplayground platform.",
@@ -269,6 +301,20 @@
       },
       "title": "AddApplicationRequest with a request to add an application to catalog"
     },
+    "catalogApplicationInstanceConfiguration": {
+      "type": "object",
+      "properties": {
+        "application_default_name": {
+          "type": "string",
+          "title": "ApplicationDefaultName with the application instance name by default"
+        },
+        "spec_components_raw": {
+          "type": "string",
+          "title": "SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)"
+        }
+      },
+      "title": "ApplicationInstanceConfiguration  with the configuration with wich the application will be deployed"
+    },
     "catalogApplicationList": {
       "type": "object",
       "properties": {
@@ -438,6 +484,10 @@
         "target_playground_api_url": {
           "type": "string",
           "description": "TargetPlaygroundAPIURL indicating the url to which redirect the request."
+        },
+        "instance_configuration": {
+          "$ref": "#/definitions/catalogApplicationInstanceConfiguration",
+          "title": "InstanceConfiguration with the configuration which the application will be deployed"
         }
       },
       "description": "DeployApplicationRequest with the information required to send a\ndeploy request."
@@ -470,6 +520,30 @@
         }
       },
       "title": "FileInfo represents all the information of an application file"
+    },
+    "catalogGetConfigurationRequest": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string",
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
+        }
+      },
+      "title": "GetConfigurationRequest with the information required to ask for an application configuration"
+    },
+    "catalogGetConfigurationResponse": {
+      "type": "object",
+      "properties": {
+        "application_default_name": {
+          "type": "string",
+          "title": "ApplicationDefaultName with the application instance name by default"
+        },
+        "spec_components_raw": {
+          "type": "string",
+          "title": "SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)"
+        }
+      },
+      "title": "GetConfigurationResponse with application configuration"
     },
     "catalogInfoApplicationRequest": {
       "type": "object",
