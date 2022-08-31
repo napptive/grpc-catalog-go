@@ -534,6 +534,10 @@
     "catalogGetConfigurationResponse": {
       "type": "object",
       "properties": {
+        "is_application": {
+          "type": "boolean",
+          "title": "IsApplication with a flag to indicate if the catalog application contains an oam application or not\nThe user the might want store component definitions in the catalog and deploy them. In this case, \nthe \"appliation\" in the catalog does no correspond to an oam application"
+        },
         "application_default_name": {
           "type": "string",
           "title": "ApplicationDefaultName with the application instance name by default"
