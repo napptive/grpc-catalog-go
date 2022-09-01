@@ -193,7 +193,9 @@ message DeployApplicationRequest{
   // TargetPlaygroundAPIURL indicating the url to which redirect the request.
   string target_playground_api_url = 3 [(validate.rules).string.min_len = 1];
   // InstanceConfiguration with the configuration which the application will be deployed
-  ApplicationInstanceConfiguration instance_configuration = 4;
+  // indexed by the original application name. This approach enables the catalog to support
+  // application packages that deploy more than one application.
+  map<string, ApplicationInstanceConfiguration> instance_configuration = 4;
 }
 
 // GetConfigurationRequest with the information required to ask for an application configuration

@@ -2184,33 +2184,40 @@ func (m *DeployApplicationRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if all {
-		switch v := interface{}(m.GetInstanceConfiguration()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, DeployApplicationRequestValidationError{
-					field:  "InstanceConfiguration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
+	for key, val := range m.GetInstanceConfiguration() {
+		_ = val
+
+		// no validation rules for InstanceConfiguration[key]
+
+		if all {
+			switch v := interface{}(val).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DeployApplicationRequestValidationError{
+						field:  fmt.Sprintf("InstanceConfiguration[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DeployApplicationRequestValidationError{
+						field:  fmt.Sprintf("InstanceConfiguration[%v]", key),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
 			}
-		case interface{ Validate() error }:
+		} else if v, ok := interface{}(val).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				errors = append(errors, DeployApplicationRequestValidationError{
-					field:  "InstanceConfiguration",
+				return DeployApplicationRequestValidationError{
+					field:  fmt.Sprintf("InstanceConfiguration[%v]", key),
 					reason: "embedded message failed validation",
 					cause:  err,
-				})
+				}
 			}
 		}
-	} else if v, ok := interface{}(m.GetInstanceConfiguration()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return DeployApplicationRequestValidationError{
-				field:  "InstanceConfiguration",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
+
 	}
 
 	if len(errors) > 0 {

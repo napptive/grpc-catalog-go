@@ -486,8 +486,11 @@
           "description": "TargetPlaygroundAPIURL indicating the url to which redirect the request."
         },
         "instance_configuration": {
-          "$ref": "#/definitions/catalogApplicationInstanceConfiguration",
-          "title": "InstanceConfiguration with the configuration which the application will be deployed"
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/catalogApplicationInstanceConfiguration"
+          },
+          "description": "InstanceConfiguration with the configuration which the application will be deployed\nindexed by the original application name. This approach enables the catalog to support\napplication packages that deploy more than one application."
         }
       },
       "description": "DeployApplicationRequest with the information required to send a\ndeploy request."
