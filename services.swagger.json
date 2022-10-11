@@ -472,11 +472,8 @@
           "title": "SummaryApplicationLogo logos indexed by tag"
         },
         "private": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "boolean"
-          },
-          "title": "Private indicate the application scope indexed by tag"
+          "type": "boolean",
+          "title": "Private indicate the application scope"
         }
       },
       "title": "ApplicationSummary with a resume of an application"

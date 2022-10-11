@@ -85,8 +85,8 @@ message ApplicationSummary {
   map<string, string> tag_metadata_name = 3;
   // SummaryApplicationLogo logos indexed by tag
   map<string, ApplicationLogoList> summary_application_logo = 4;
-  // Private indicate the application scope indexed by tag
-  map<string, bool> private = 5;
+  // Private indicate the application scope
+  bool private = 5;
 }
 
 // ApplicationList with a subset of application summaries.
