@@ -21,6 +21,8 @@ message AddApplicationRequest {
   string application_id = 1 [(validate.rules).string.min_len = 1];
   // Files with all the application files
   FileInfo file = 2;
+  // Private with a flag to indicate if the application is private or not
+  bool private = 3;
 }
 
 // DownloadApplicationRequest with the request to download an application
@@ -63,6 +65,8 @@ message InfoApplicationResponse {
   bytes readme_file = 5;
   // Metadata with the metadata object
   ApplicationMetadata metadata = 6;
+  // Private wit a flag to indicate if an application is private or not
+  bool private = 7;
 }
 
 // ApplicationLogoList with a list of application logo

@@ -206,6 +206,8 @@ func (m *AddApplicationRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Private
+
 	if len(errors) > 0 {
 		return AddApplicationRequestMultiError(errors)
 	}
@@ -683,6 +685,8 @@ func (m *InfoApplicationResponse) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for Private
 
 	if len(errors) > 0 {
 		return InfoApplicationResponseMultiError(errors)

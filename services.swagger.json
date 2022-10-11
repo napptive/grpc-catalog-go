@@ -297,6 +297,10 @@
         "file": {
           "$ref": "#/definitions/catalogFileInfo",
           "title": "Files with all the application files"
+        },
+        "private": {
+          "type": "boolean",
+          "title": "Private with a flag to indicate if the application is private or not"
         }
       },
       "title": "AddApplicationRequest with a request to add an application to catalog"
@@ -590,6 +594,10 @@
         "metadata": {
           "$ref": "#/definitions/catalogApplicationMetadata",
           "title": "Metadata with the metadata object"
+        },
+        "private": {
+          "type": "boolean",
+          "title": "Private wit a flag to indicate if an application is private or not"
         }
       },
       "title": "InfoApplicationResponse with the response of an application"
