@@ -966,6 +966,8 @@ func (m *ApplicationSummary) validate(all bool) error {
 
 	}
 
+	// no validation rules for Private
+
 	if len(errors) > 0 {
 		return ApplicationSummaryMultiError(errors)
 	}
