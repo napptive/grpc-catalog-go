@@ -284,6 +284,39 @@
           "Catalog"
         ]
       }
+    },
+    "/catalog/v0/update": {
+      "post": {
+        "summary": "Update changes the application visibility (Private \u003c-\u003e Public)",
+        "operationId": "Catalog_Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalog_commonOpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogUpdateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Catalog"
+        ]
+      }
     }
   },
   "definitions": {
@@ -664,6 +697,23 @@
         }
       },
       "title": "SummaryResponse with a summary of the number of applications in the catalog"
+    },
+    "catalogUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "description": "Namespace where the application is located."
+        },
+        "application_name": {
+          "type": "string",
+          "title": "ApplicationName with the name of the application"
+        },
+        "private": {
+          "type": "boolean",
+          "title": "Private with the application visibility"
+        }
+      }
     },
     "catalog_commonOpResponse": {
       "type": "object",

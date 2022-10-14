@@ -52,6 +52,13 @@ service Catalog {
       get: "/catalog/v0/summary"
     };
   }
+  // Update changes the application visibility (Private <-> Public)
+  rpc Update(UpdateRequest) returns (catalog_common.OpResponse){
+    option (google.api.http) = {
+      post: "/catalog/v0/update"
+      body: "*"
+    };
+  }
 
 }
 

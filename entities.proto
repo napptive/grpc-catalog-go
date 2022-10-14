@@ -223,3 +223,12 @@ message GetConfigurationResponse{
     // SpecComponentsRaw with the component specification in yaml format (parameters, traits, etc.)
     string spec_components_raw = 3;
 }
+
+message UpdateRequest {
+  // Namespace where the application is located.
+  string namespace = 1;
+  // ApplicationName with the name of the application
+  string application_name = 2;
+  // Private with the application visibility
+  bool private = 3;
+}
