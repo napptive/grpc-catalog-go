@@ -2546,9 +2546,27 @@ func (m *UpdateRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Namespace
+	if utf8.RuneCountInString(m.GetNamespace()) < 1 {
+		err := UpdateRequestValidationError{
+			field:  "Namespace",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for ApplicationName
+	if utf8.RuneCountInString(m.GetApplicationName()) < 1 {
+		err := UpdateRequestValidationError{
+			field:  "ApplicationName",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Private
 
