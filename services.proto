@@ -14,48 +14,48 @@ service Catalog {
   // Add a new application to the catalog.
   rpc Add (stream AddApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
-      post: "/catalog/v0/add"
+      post: "/v0/catalog/add"
       body: "*"
     };
   }
   // Download an application from the catalog.
   rpc Download(DownloadApplicationRequest) returns (stream FileInfo) {
     option (google.api.http) = {
-      post: "/catalog/v0/download",
+      post: "/v0/catalog/download",
       body: "*"
     };
   }
   //Remove an application from the catalog.
   rpc Remove (RemoveApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
-      post: "/catalog/v0/remove"
+      post: "/v0/catalog/remove"
       body: "*"
     };
   }
   // List the applications in the catalog.
   rpc List (ListApplicationsRequest) returns (ApplicationList) {
     option (google.api.http) = {
-      post: "/catalog/v0/list"
+      post: "/v0/catalog/list"
       body: "*"
     };
   }
   // Info returns the detail of a given application.
   rpc Info (InfoApplicationRequest) returns (InfoApplicationResponse){
     option (google.api.http) = {
-      post: "/catalog/v0/info"
+      post: "/v0/catalog/info"
       body: "*"
     };
   }
   // Summary returns the catalog summary
   rpc Summary(catalog_common.EmptyRequest) returns (SummaryResponse){
     option (google.api.http) = {
-      get: "/catalog/v0/summary"
+      get: "/v0/catalog/summary"
     };
   }
   // Update changes the application visibility (Private <-> Public)
   rpc Update(UpdateRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
-      post: "/catalog/v0/update"
+      post: "/v0/catalog/update"
       body: "*"
     };
   }
@@ -80,13 +80,13 @@ service Applications{
   // playground platform.
   rpc Deploy(DeployApplicationRequest) returns (catalog_common.OpResponse){
     option (google.api.http) = {
-      post: "/catalog/v0/app/deploy"
+      post: "/v0/catalog/app/deploy"
       body: "*"
     };
   }
   rpc GetConfiguration(GetConfigurationRequest) returns (GetConfigurationResponse) {
     option (google.api.http) = {
-      post: "/catalog/v0/app/configuration"
+      post: "/v0/catalog/app/configuration"
       body: "*"
     };
   }

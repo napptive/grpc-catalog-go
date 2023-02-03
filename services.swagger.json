@@ -22,7 +22,7 @@
     "application/json"
   ],
   "paths": {
-    "/catalog/v0/add": {
+    "/v0/catalog/add": {
       "post": {
         "summary": "Add a new application to the catalog.",
         "operationId": "Catalog_Add",
@@ -56,7 +56,7 @@
         ]
       }
     },
-    "/catalog/v0/app/configuration": {
+    "/v0/catalog/app/configuration": {
       "post": {
         "operationId": "Applications_GetConfiguration",
         "responses": {
@@ -88,7 +88,7 @@
         ]
       }
     },
-    "/catalog/v0/app/deploy": {
+    "/v0/catalog/app/deploy": {
       "post": {
         "summary": "Deploy an application on a target Playground platform. This endpoint\nwill gather the application information and send it to the target\nplayground platform.",
         "operationId": "Applications_Deploy",
@@ -121,7 +121,7 @@
         ]
       }
     },
-    "/catalog/v0/download": {
+    "/v0/catalog/download": {
       "post": {
         "summary": "Download an application from the catalog.",
         "operationId": "Catalog_Download",
@@ -163,7 +163,7 @@
         ]
       }
     },
-    "/catalog/v0/info": {
+    "/v0/catalog/info": {
       "post": {
         "summary": "Info returns the detail of a given application.",
         "operationId": "Catalog_Info",
@@ -196,7 +196,7 @@
         ]
       }
     },
-    "/catalog/v0/list": {
+    "/v0/catalog/list": {
       "post": {
         "summary": "List the applications in the catalog.",
         "operationId": "Catalog_List",
@@ -229,7 +229,7 @@
         ]
       }
     },
-    "/catalog/v0/remove": {
+    "/v0/catalog/remove": {
       "post": {
         "summary": "Remove an application from the catalog.",
         "operationId": "Catalog_Remove",
@@ -262,7 +262,7 @@
         ]
       }
     },
-    "/catalog/v0/summary": {
+    "/v0/catalog/summary": {
       "get": {
         "summary": "Summary returns the catalog summary",
         "operationId": "Catalog_Summary",
@@ -285,7 +285,7 @@
         ]
       }
     },
-    "/catalog/v0/update": {
+    "/v0/catalog/update": {
       "post": {
         "summary": "Update changes the application visibility (Private \u003c-\u003e Public)",
         "operationId": "Catalog_Update",

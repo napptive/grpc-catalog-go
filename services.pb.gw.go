@@ -698,19 +698,19 @@ func RegisterCatalogHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 }
 
 var (
-	pattern_Catalog_Add_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "add"}, ""))
+	pattern_Catalog_Add_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "add"}, ""))
 
-	pattern_Catalog_Download_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "download"}, ""))
+	pattern_Catalog_Download_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "download"}, ""))
 
-	pattern_Catalog_Remove_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "remove"}, ""))
+	pattern_Catalog_Remove_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "remove"}, ""))
 
-	pattern_Catalog_List_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "list"}, ""))
+	pattern_Catalog_List_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "list"}, ""))
 
-	pattern_Catalog_Info_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "info"}, ""))
+	pattern_Catalog_Info_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "info"}, ""))
 
-	pattern_Catalog_Summary_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "summary"}, ""))
+	pattern_Catalog_Summary_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "summary"}, ""))
 
-	pattern_Catalog_Update_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"catalog", "v0", "update"}, ""))
+	pattern_Catalog_Update_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v0", "catalog", "update"}, ""))
 )
 
 var (
@@ -811,9 +811,9 @@ func RegisterApplicationsHandlerClient(ctx context.Context, mux *runtime.ServeMu
 }
 
 var (
-	pattern_Applications_Deploy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"catalog", "v0", "app", "deploy"}, ""))
+	pattern_Applications_Deploy_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v0", "catalog", "app", "deploy"}, ""))
 
-	pattern_Applications_GetConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"catalog", "v0", "app", "configuration"}, ""))
+	pattern_Applications_GetConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v0", "catalog", "app", "configuration"}, ""))
 )
 
 var (
