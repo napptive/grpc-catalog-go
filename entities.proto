@@ -232,3 +232,23 @@ message UpdateRequest {
   // Private with the application visibility
   bool private = 3;
 }
+
+// UploadApplicationRequest with a request to add a complete application to the catalog
+message UploadApplicationRequest {
+  // ApplicationId with the identifier of an application using the
+  // same approach as docker:
+  // [catalogURL/]namespace/appName[:tag]
+  string application_id = 1 [(validate.rules).string.min_len = 1];
+  // Files with all the application files
+  repeated Base64FileInfo files = 2;
+  // Private with a flag to indicate if the application is private or not
+  bool private = 3;
+}
+
+// Base64FileInfo represents all the information of an application file with the content encoded in base64.
+message Base64FileInfo {
+  // Path with the path of the file
+  string path = 1 [(validate.rules).string.min_len = 1];
+  // Data with the file content
+  string data = 2 [(validate.rules).string.min_len = 1];
+}

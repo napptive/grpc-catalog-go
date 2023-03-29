@@ -2646,3 +2646,272 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateRequestValidationError{}
+
+// Validate checks the field values on UploadApplicationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UploadApplicationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UploadApplicationRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UploadApplicationRequestMultiError, or nil if none found.
+func (m *UploadApplicationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UploadApplicationRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetApplicationId()) < 1 {
+		err := UploadApplicationRequestValidationError{
+			field:  "ApplicationId",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetFiles() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UploadApplicationRequestValidationError{
+						field:  fmt.Sprintf("Files[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UploadApplicationRequestValidationError{
+						field:  fmt.Sprintf("Files[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UploadApplicationRequestValidationError{
+					field:  fmt.Sprintf("Files[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Private
+
+	if len(errors) > 0 {
+		return UploadApplicationRequestMultiError(errors)
+	}
+	return nil
+}
+
+// UploadApplicationRequestMultiError is an error wrapping multiple validation
+// errors returned by UploadApplicationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UploadApplicationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UploadApplicationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UploadApplicationRequestMultiError) AllErrors() []error { return m }
+
+// UploadApplicationRequestValidationError is the validation error returned by
+// UploadApplicationRequest.Validate if the designated constraints aren't met.
+type UploadApplicationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UploadApplicationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UploadApplicationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UploadApplicationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UploadApplicationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UploadApplicationRequestValidationError) ErrorName() string {
+	return "UploadApplicationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UploadApplicationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUploadApplicationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UploadApplicationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UploadApplicationRequestValidationError{}
+
+// Validate checks the field values on Base64FileInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Base64FileInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Base64FileInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in Base64FileInfoMultiError,
+// or nil if none found.
+func (m *Base64FileInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Base64FileInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetPath()) < 1 {
+		err := Base64FileInfoValidationError{
+			field:  "Path",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetData()) < 1 {
+		err := Base64FileInfoValidationError{
+			field:  "Data",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return Base64FileInfoMultiError(errors)
+	}
+	return nil
+}
+
+// Base64FileInfoMultiError is an error wrapping multiple validation errors
+// returned by Base64FileInfo.ValidateAll() if the designated constraints
+// aren't met.
+type Base64FileInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Base64FileInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Base64FileInfoMultiError) AllErrors() []error { return m }
+
+// Base64FileInfoValidationError is the validation error returned by
+// Base64FileInfo.Validate if the designated constraints aren't met.
+type Base64FileInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Base64FileInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Base64FileInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Base64FileInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Base64FileInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Base64FileInfoValidationError) ErrorName() string { return "Base64FileInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e Base64FileInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBase64FileInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Base64FileInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Base64FileInfoValidationError{}

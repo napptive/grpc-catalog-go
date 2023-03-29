@@ -317,6 +317,39 @@
           "Catalog"
         ]
       }
+    },
+    "/v0/catalog/upload": {
+      "post": {
+        "summary": "Upload a new application to the catalog.",
+        "operationId": "Catalog_Upload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/catalog_commonOpResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/catalogUploadApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Catalog"
+        ]
+      }
     }
   },
   "definitions": {
@@ -510,6 +543,20 @@
         }
       },
       "title": "ApplicationSummary with a resume of an application"
+    },
+    "catalogBase64FileInfo": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "title": "Path with the path of the file"
+        },
+        "data": {
+          "type": "string",
+          "title": "Data with the file content"
+        }
+      },
+      "description": "Base64FileInfo represents all the information of an application file with the content encoded in base64."
     },
     "catalogDeployApplicationRequest": {
       "type": "object",
@@ -714,6 +761,27 @@
           "title": "Private with the application visibility"
         }
       }
+    },
+    "catalogUploadApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application_id": {
+          "type": "string",
+          "title": "ApplicationId with the identifier of an application using the\nsame approach as docker:\n[catalogURL/]namespace/appName[:tag]"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/catalogBase64FileInfo"
+          },
+          "title": "Files with all the application files"
+        },
+        "private": {
+          "type": "boolean",
+          "title": "Private with a flag to indicate if the application is private or not"
+        }
+      },
+      "title": "UploadApplicationRequest with a request to add a complete application to the catalog"
     },
     "catalog_commonOpResponse": {
       "type": "object",

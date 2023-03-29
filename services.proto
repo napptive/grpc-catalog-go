@@ -18,6 +18,14 @@ service Catalog {
       body: "*"
     };
   }
+  // Upload a new application to the catalog.
+  rpc Upload(UploadApplicationRequest) returns (catalog_common.OpResponse) {
+    option (google.api.http) = {
+      post: "/v0/catalog/upload"
+      body: "*"
+    };
+  }
+
   // Download an application from the catalog.
   rpc Download(DownloadApplicationRequest) returns (stream FileInfo) {
     option (google.api.http) = {
